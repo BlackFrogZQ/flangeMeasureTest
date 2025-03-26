@@ -1,0 +1,5 @@
+.vscode/*
+build/*
+log/*
+lib/HMHaShu/*
+UDM.bin

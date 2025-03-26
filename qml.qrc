@@ -1,0 +1,16 @@
+<!DOCTYPE RCC><RCC version="1.0">
+	<qresource>
+	<file>res/ico.png</file>
+	<file>res/para/close.png</file>
+	<file>res/para/open.png</file>
+	<file>res/menu/administrator.png</file>
+	<file>res/menu/user.png</file>
+	<file>res/menu/new.png</file>
+	<file>res/menu/openProject.png</file>
+	<file>res/menu/loadFile.png</file>
+	<file>res/menu/setting.png</file>
+	<file>res/menu/onBottom.png</file>
+	<file>res/menu/onTop.png</file>
+	<file>res/menu/hide.png</file>
+	</qresource>
+</RCC>

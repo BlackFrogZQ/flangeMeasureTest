@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ParameterRoot remark="" cnName="ParameterRoot" visible="1">
+    <DZSTMarkConnectPara remark="/" cnName="振镜卡连接参数" visible="1">
+        <ip remark="" cnName="ip" visible="1">
+            <value>172.18.34.227</value>
+        </ip>
+        <MarkProtocol remark="SPI*XY2-100*SL2" cnName="打标协议" visible="1">
+            <value>1</value>
+        </MarkProtocol>
+    </DZSTMarkConnectPara>
+    <GalvoScanningSystemParas remark="/" cnName="振镜扫描系统参数" visible="1">
+        <MarkSpeed remark="mm/s" cnName="打标速度" visible="1">
+            <value>1000</value>
+        </MarkSpeed>
+        <JumpSpeed remark="mm/s" cnName="跳转速度" visible="1">
+            <value>2000</value>
+        </JumpSpeed>
+        <MarkDelay remark="us" cnName="打标延时" visible="1">
+            <value>0</value>
+        </MarkDelay>
+        <JumpDelay remark="us" cnName="跳转延时" visible="1">
+            <value>0</value>
+        </JumpDelay>
+        <PolygonDelay remark="us" cnName="转弯延时" visible="1">
+            <value>0</value>
+        </PolygonDelay>
+        <MarkCount remark="" cnName="打标次数" visible="1">
+            <value>1</value>
+        </MarkCount>
+    </GalvoScanningSystemParas>
+    <CLaserParas remark="/" cnName="激光参数" visible="1">
+        <LaserDevice remark="IPG*SPI*CO2/紫外" cnName="激光器类型" visible="1">
+            <value>1</value>
+        </LaserDevice>
+        <LaserOnDelay remark="us" cnName="开激光延时" visible="1">
+            <value>10</value>
+        </LaserOnDelay>
+        <LaserOffDelay remark="us" cnName="关激光延时" visible="1">
+            <value>200</value>
+        </LaserOffDelay>
+        <FPKDelay remark="us" cnName="首脉冲抑制延时" visible="1">
+            <value>0</value>
+        </FPKDelay>
+        <FPKLength remark="us" cnName="首脉冲抑制长度" visible="1">
+            <value>0</value>
+        </FPKLength>
+        <QDelay remark="us" cnName="出光Q频率延时" visible="1">
+            <value>0</value>
+        </QDelay>
+        <DutyCycle remark="0~1" cnName="出光时占空比" visible="1">
+            <value>0.5</value>
+        </DutyCycle>
+        <Frequency remark="kHz" cnName="出光时频率" visible="1">
+            <value>20</value>
+        </Frequency>
+        <StandbyFrequency remark="kHz" cnName="不出光Q频率" visible="1">
+            <value>20</value>
+        </StandbyFrequency>
+        <StandbyDutyCycle remark="0~1" cnName="不出光Q占空比" visible="1">
+            <value>0.5</value>
+        </StandbyDutyCycle>
+        <LaserPower remark="(0~100)%, 50代表50%" cnName="激光能量百分比" visible="1">
+            <value>15</value>
+        </LaserPower>
+        <AnalogMode remark="0~10V" cnName="激光器能量" visible="1">
+            <value>0</value>
+        </AnalogMode>
+        <Waveform remark="0~63" cnName="SPI激光器波形号" visible="1">
+            <value>1</value>
+        </Waveform>
+        <PulseWidthMode remark="0, 不开启MOPA脉宽使能模式, 1, 开启MOPA激光器脉宽使能" cnName="脉宽使能" visible="1">
+            <value>0</value>
+        </PulseWidthMode>
+        <PulseWidth remark="us" cnName="MOPA激光器脉宽值" visible="1">
+            <value>0</value>
+        </PulseWidth>
+    </CLaserParas>
+</ParameterRoot>
