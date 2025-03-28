@@ -1,10 +1,11 @@
 ﻿#include "mainWindow.h"
 #include "basic.h"
-#include "logTextBrowser/textBrowser.h"
 #include "system/basic.h"
-#include "hal/DZSTMark/DZSTMark.h"
 #include "controlWindow/controlWindow.h"
+#include "logTextBrowser/textBrowser.h"
+#include "hal/DZSTMark/DZSTMark.h"
 #include "menuBar/menuBar.h"
+#include <QLabel>
 #include <QTextBrowser>
 #include <QVBoxLayout>
 
@@ -50,19 +51,33 @@ bool CMainWindow::nativeEvent(const QByteArray& eventType, void* message, long* 
 
 void CMainWindow::init()
 {
-    m_pControl = new CControl(this, m_pCDZSTMark);
     m_pMenuBar = new CMainWindowMenuBar(this);
+
+    m_pImageLabel = new QLabel;
+    m_pImageLabel->setFixedSize(500, 500);
+    m_pImageLabel->setStyleSheet(cStyleSheet);
+
+    m_pControl = new CControl(this, m_pCDZSTMark);
+
+    QWidget *pCameraWidget = new QWidget;
+    QHBoxLayout *pCameraLayout = new QHBoxLayout;
+    pCameraLayout->addWidget(m_pImageLabel);
+    pCameraLayout->addWidget(m_pControl);
+    pCameraLayout->setMargin(0);
+    pCameraLayout->setSpacing(2);
+    pCameraWidget->setLayout(pCameraLayout);
 
     // 输入输出窗口
     m_pOutMsg = new CTextBrowser(this, this);
-    const QString cStyleSheet = "border:1px groove rgb(203,217,235);border-radius:3px;background:transparent;background-color: rgba(255, 255, 255,150);";
     m_pOutMsg->setStyleSheet(cStyleSheet);
     m_pOutMsg->document()->setMaximumBlockCount(300);
     m_pOutMsg->setFixedHeight(100);
 
     QVBoxLayout *pLayout = new QVBoxLayout();
     pLayout->addWidget(m_pMenuBar);
-    pLayout->addWidget(m_pControl);
+    pLayout->addWidget(pCameraWidget);
     pLayout->addWidget(m_pOutMsg);
+    pLayout->setMargin(0);
+    pLayout->setSpacing(2);
     this->setLayout(pLayout);
 }

@@ -2,7 +2,6 @@
 #include <QWidget>
 
 class CDZSTMark;
-class QTextBrowser;
 class QPushButton;
 
 class CControl: public QWidget
@@ -13,7 +12,7 @@ public:
     ~CControl();
 
 protected:
-	void init();
+	void initLayout();
 
 protected slots:
     void OnBnClickedButtonConnect();
@@ -29,13 +28,18 @@ protected slots:
 private:
     CDZSTMark *m_pCDZSTMark;
 
-    QPushButton *m_pConnect;
-    QPushButton *m_pDisconnect;
-    QPushButton *m_pCreateUDM;
-    QPushButton *m_pDownloadUDM;
+    QPushButton *m_pFindDevices;
+    QPushButton *m_pConnectCamera;
+    QPushButton *m_pDisconnectCamera;
 
-    QPushButton *m_pStartMark;
-    QPushButton *m_pPauseMark;
-    QPushButton *m_pContinueMark;
-    QPushButton *m_pStopMark;
+    QPushButton *m_pImageGrab;
+    QPushButton *m_pImageStop;
+
+    QPushButton *m_pSaveTIFF;
+    QPushButton *m_pSaveBMP;
+    QPushButton *m_pSaveJPG;
+    QPushButton *m_pSavePLY;
+    QPushButton *m_pSaveCSV;
+    QPushButton *m_pSaveOBJ;
+    QPushButton *m_pSaveRAW;
 };

@@ -7,6 +7,7 @@
 #include "Mv3dLpDefine.h"
 #include "Mv3dLpImgProc.h"
 
+class QLabel;
 class CDZSTMark;
 class QTextBrowser;
 class CMainWindowMenuBar;
@@ -29,9 +30,9 @@ private:
     HWND m_hWnd;
     CDZSTMark *m_pCDZSTMark;
 
+    QLabel *m_pImageLabel;
 	QTextBrowser* m_pOutMsg;
     QWidget* m_pControl;
-    QWidget* m_pMultipointCorrect;
     CMainWindowMenuBar *m_pMenuBar;
 };
 
