@@ -2,31 +2,38 @@
 #include <QWidget>
 
 class CDZSTMark;
+class CHIK3DMVS;
 class QPushButton;
 
 class CControl: public QWidget
 {
     Q_OBJECT
 public:
-    CControl(QWidget *parent = nullptr, CDZSTMark *p_CDZSTMark = nullptr);
+    CControl(QWidget *parent = nullptr, CHIK3DMVS *p_CHIK3DMVS = nullptr);
     ~CControl();
 
 protected:
 	void initLayout();
 
 protected slots:
-    void OnBnClickedButtonConnect();
-    void OnBnClickedButtonDisconnect();
-    void OnBnClickedButtonCreateUDM();
-    void OnBnClickedButtonDownloadUDM();
+    void clickEnumDevices();
+    void clickConnectCamera();
+    void clickDisconnectCamera();
 
-    void OnBnClickedButtonStartMark();
-    void OnBnClickedButtonPauseMark();
-    void OnBnClickedButtonContinueMark();
-    void OnBnClickedButtonStopMark();
+    void clickStartGrab();
+    void clickStopGrab();
+
+    void clickSaveTIFF();
+    void clickSaveBMP();
+    void clickSaveJPG();
+    void clickSavePLY();
+    void clickSaveCSV();
+    void clickSaveOBJ();
+    void clickSaveRAW();
 
 private:
     CDZSTMark *m_pCDZSTMark;
+    CHIK3DMVS *m_pCHIK3DMVS;
 
     QPushButton *m_pFindDevices;
     QPushButton *m_pConnectCamera;

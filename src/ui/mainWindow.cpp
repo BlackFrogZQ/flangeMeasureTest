@@ -4,6 +4,7 @@
 #include "controlWindow/controlWindow.h"
 #include "logTextBrowser/textBrowser.h"
 #include "hal/DZSTMark/DZSTMark.h"
+#include "hal/HIK3DMVS/HIK3DMVS.h"
 #include "menuBar/menuBar.h"
 #include <QLabel>
 #include <QTextBrowser>
@@ -21,6 +22,8 @@ CMainWindow::CMainWindow(QWidget *parent) : QWidget(parent)
 
     m_hWnd = (HWND)this->winId();
     m_pCDZSTMark = new CDZSTMark(m_hWnd);
+
+    m_pCHIK3DMVS = new CHIK3DMVS();
 
     init();
 
@@ -57,7 +60,7 @@ void CMainWindow::init()
     m_pImageLabel->setFixedSize(500, 500);
     m_pImageLabel->setStyleSheet(cStyleSheet);
 
-    m_pControl = new CControl(this, m_pCDZSTMark);
+    m_pControl = new CControl(this, m_pCHIK3DMVS);
 
     QWidget *pCameraWidget = new QWidget;
     QHBoxLayout *pCameraLayout = new QHBoxLayout;

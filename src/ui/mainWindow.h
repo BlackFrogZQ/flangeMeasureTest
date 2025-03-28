@@ -3,12 +3,10 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <QWidget>
-#include "Mv3dLpApi.h"
-#include "Mv3dLpDefine.h"
-#include "Mv3dLpImgProc.h"
 
 class QLabel;
 class CDZSTMark;
+class CHIK3DMVS;
 class QTextBrowser;
 class CMainWindowMenuBar;
 const QString cStyleSheet = "border:1px groove gray;\nborder-radius:10px;\npadding:2px 3px;\nbackground:transparent;\nbackground-color: rgb(255, 255, 255,150);";
@@ -29,6 +27,8 @@ protected:
 private:
     HWND m_hWnd;
     CDZSTMark *m_pCDZSTMark;
+
+    CHIK3DMVS *m_pCHIK3DMVS;
 
     QLabel *m_pImageLabel;
 	QTextBrowser* m_pOutMsg;

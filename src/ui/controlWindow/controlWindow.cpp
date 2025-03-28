@@ -1,5 +1,6 @@
 ﻿#include "controlWindow.h"
 #include "system/basic.h"
+#include "hal/HIK3DMVS/HIK3DMVS.h"
 #include "hal/DZSTMark/DZSTMark.h"
 #include "hal/DZSTMark/DZSTMarkDef.h"
 #include <QPushButton>
@@ -9,7 +10,7 @@
 
 using namespace TIGER_DZSTMarkDef;
 
-CControl::CControl(QWidget *parent, CDZSTMark *p_CDZSTMark): QWidget(parent), m_pCDZSTMark(p_CDZSTMark)
+CControl::CControl(QWidget *parent, CHIK3DMVS *p_CHIK3DMVS) : QWidget(parent), m_pCHIK3DMVS(p_CHIK3DMVS)
 {
     initLayout();
 }
@@ -64,56 +65,73 @@ void CControl::initLayout()
     pButtonLayout->setSpacing(2);
     this->setLayout(pButtonLayout);
 
-    connect(m_pConnectCamera, &QPushButton::clicked, this, &CControl::OnBnClickedButtonConnect);
-    connect(m_pDisconnectCamera, &QPushButton::clicked, this, &CControl::OnBnClickedButtonDisconnect);
-    connect(m_pSaveTIFF, &QPushButton::clicked, this, &CControl::OnBnClickedButtonCreateUDM);
-    connect(m_pSaveBMP, &QPushButton::clicked, this, &CControl::OnBnClickedButtonDownloadUDM);
-    connect(m_pSaveJPG, &QPushButton::clicked, this, &CControl::OnBnClickedButtonStartMark);
-    connect(m_pSavePLY, &QPushButton::clicked, this, &CControl::OnBnClickedButtonPauseMark);
-    connect(m_pSaveCSV, &QPushButton::clicked, this, &CControl::OnBnClickedButtonContinueMark);
-    connect(m_pSaveOBJ, &QPushButton::clicked, this, &CControl::OnBnClickedButtonStopMark);
+    connect(m_pFindDevices, &QPushButton::clicked, this, &CControl::clickEnumDevices);
+    connect(m_pConnectCamera, &QPushButton::clicked, this, &CControl::clickConnectCamera);
+    connect(m_pDisconnectCamera, &QPushButton::clicked, this, &CControl::clickDisconnectCamera);
+
+    connect(m_pImageGrab, &QPushButton::clicked, this, &CControl::clickStartGrab);
+    connect(m_pImageStop, &QPushButton::clicked, this, &CControl::clickStopGrab);
+
+    connect(m_pSaveTIFF, &QPushButton::clicked, this, &CControl::clickSaveTIFF);
+    connect(m_pSaveBMP, &QPushButton::clicked, this, &CControl::clickSaveBMP);
+    connect(m_pSaveJPG, &QPushButton::clicked, this, &CControl::clickSaveJPG);
+    connect(m_pSavePLY, &QPushButton::clicked, this, &CControl::clickSavePLY);
+    connect(m_pSaveCSV, &QPushButton::clicked, this, &CControl::clickSaveCSV);
+    connect(m_pSaveOBJ, &QPushButton::clicked, this, &CControl::clickSaveOBJ);
+    connect(m_pSaveRAW, &QPushButton::clicked, this, &CControl::clickSaveRAW);
 }
 
-void CControl::OnBnClickedButtonConnect()
+void CControl::clickEnumDevices()
 {
-    m_pCDZSTMark->ipConnectDevice(DZSTMarkConnectPara()->ip);
+    m_pCHIK3DMVS->enumDevices();
 }
 
-void CControl::OnBnClickedButtonDisconnect()
+void CControl::clickConnectCamera()
 {
-    m_pCDZSTMark->disconnectDevice();
+    m_pCHIK3DMVS->openCamera();
 }
 
-
-
-void CControl::OnBnClickedButtonCreateUDM()
+void CControl::clickDisconnectCamera()
 {
-    m_pCDZSTMark->creatUdmBin();
-}
-
-void CControl::OnBnClickedButtonDownloadUDM()
-{
-    m_pCDZSTMark->downloadMarkFile();
+    m_pCHIK3DMVS->closeCamera();
 }
 
 
-
-void CControl::OnBnClickedButtonStartMark()
+void CControl::clickStartGrab()
 {
-    m_pCDZSTMark->starMark();
+    m_pCHIK3DMVS->startGrabImage();
 }
 
-void CControl::OnBnClickedButtonPauseMark()
+void CControl::clickStopGrab()
 {
-    m_pCDZSTMark->PauseMark();
+    m_pCHIK3DMVS->stopGrabImage();
 }
 
-void CControl::OnBnClickedButtonContinueMark()
+
+void CControl::clickSaveTIFF()
 {
-    m_pCDZSTMark->ContinueMark();
 }
 
-void CControl::OnBnClickedButtonStopMark()
+void CControl::clickSaveBMP()
 {
-    m_pCDZSTMark->StopMark();
+}
+
+void CControl::clickSaveJPG()
+{
+}
+
+void CControl::clickSavePLY()
+{
+}
+
+void CControl::clickSaveCSV()
+{
+}
+
+void CControl::clickSaveOBJ()
+{
+}
+
+void CControl::clickSaveRAW()
+{
 }
