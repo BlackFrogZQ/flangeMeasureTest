@@ -4,7 +4,6 @@
 #include "system/basic.h"
 #include "hal/DZSTMark/DZSTMark.h"
 #include "controlWindow/controlWindow.h"
-#include "multipointCorrectWindow/multipointCorrectWindow.h"
 #include "menuBar/menuBar.h"
 #include <QTextBrowser>
 #include <QVBoxLayout>
@@ -51,7 +50,6 @@ bool CMainWindow::nativeEvent(const QByteArray& eventType, void* message, long* 
 
 void CMainWindow::init()
 {
-    m_pMultipointCorrect = new CMultipointCorrect(this, m_pCDZSTMark);
     m_pControl = new CControl(this, m_pCDZSTMark);
     m_pMenuBar = new CMainWindowMenuBar(this);
 
@@ -64,7 +62,6 @@ void CMainWindow::init()
 
     QVBoxLayout *pLayout = new QVBoxLayout();
     pLayout->addWidget(m_pMenuBar);
-    pLayout->addWidget(m_pMultipointCorrect);
     pLayout->addWidget(m_pControl);
     pLayout->addWidget(m_pOutMsg);
     this->setLayout(pLayout);
