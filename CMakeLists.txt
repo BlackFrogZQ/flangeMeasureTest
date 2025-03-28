@@ -76,10 +76,12 @@ endif()
 
 file(GLOB HMHaShuLIBS "${PROJECT_SOURCE_DIR}/lib/HMHaShu/*.lib")
 file(GLOB HMHaShuDlls "${PROJECT_SOURCE_DIR}/lib/HMHaShu/*.dll")
+file(GLOB HIK3DMVSLIBS "${PROJECT_SOURCE_DIR}/lib/HIK3DMVS/*.lib")
+file(GLOB HIK3DMVSDlls "${PROJECT_SOURCE_DIR}/lib/HIK3DMVS/*.dll")
 # 所有非Qt通用dll库 不一定在统一目录 可直接追加目录
-set_property(GLOBAL APPEND PROPERTY LIBS ${HMHaShuLIBS} ${PythonLIBS} ${numpyLIBS} ${ZMotionLIBS} ${baslerLIBS})
+set_property(GLOBAL APPEND PROPERTY LIBS ${HMHaShuLIBS} ${HIK3DMVSLIBS})
 # 所有非Qt通用dll库 不一定在统一目录 可直接追加目录
-set_property(GLOBAL APPEND PROPERTY libDlls ${HMHaShuDlls} ${numpyDlls} ${ZMotionDlls} ${baslerDlls})
+set_property(GLOBAL APPEND PROPERTY libDlls ${HMHaShuDlls} ${HIK3DMVSDlls})
 get_property(currentLibs GLOBAL PROPERTY LIBS)
 
 macro(Macro_SetOutPath outPath)
@@ -92,8 +94,8 @@ Macro_SetOutPath(${CMAKE_CURRENT_BINARY_DIR})
 
 include_directories(./)
 include_directories(${PROJECT_SOURCE_DIR}/include)
-# opencv
 include_directories(${PROJECT_SOURCE_DIR}/include/HMHaShu)
+include_directories(${PROJECT_SOURCE_DIR}/include/HIK3DMVS)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/src/ui)
@@ -174,27 +176,3 @@ endif()
 endfunction()
 
 Fun_CopyDll(${PROJECT_NAME})
-
-
-# # 打包
-# if(DEFINED CMAKE_BUILD_TYPE)
-#     set(exeDir ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
-#     # 所有非Qt dll库 不一定在统一目录 可直接追加目录
-#     file(GLOB libDlls
-#         "${PROJECT_SOURCE_DIR}/lib/HMHaShu/*.dll"
-#         "${PROJECT_SOURCE_DIR}/lib/hikvision/*.dll")
-#     message("${PROJECT_NAME}.exe 所在目录:" ${exeDir})
-#     message("拷贝 libDlls 库到程序运行目录...")
-#     string(REPLACE ";" "\n\t" outLibDllNames "${libDlls}")
-#     message("libDlls:\n\t${outLibDllNames}")
-#     file(COPY ${libDlls} DESTINATION ${exeDir})
-#     message("拷贝结束...")
-#     message("运行qt打包程序...")
-#     execute_process(
-#         COMMAND windeployqt ${exeDir}\\${PROJECT_NAME}.exe
-#         WORKING_DIRECTORY $ENV{QT5.14.0}\\bin
-#     )
-#     message("qt打包结束")
-# else()
-#     message("未在用户设置中设置 'cmake.setBuildTypeOnMultiConfig'为 true,无法打包")
-# endif()

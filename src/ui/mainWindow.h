@@ -3,6 +3,9 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <QWidget>
+#include "Mv3dLpApi.h"
+#include "Mv3dLpDefine.h"
+#include "Mv3dLpImgProc.h"
 
 class CDZSTMark;
 class QTextBrowser;
