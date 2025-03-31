@@ -4,11 +4,12 @@
 #include "Mv3dLpImgProc.h"
 #include <windows.h>
 #include <iostream>
+#include <QtGui>
 
 class CHIK3DMVS
 {
 public:
-    CHIK3DMVS();
+    CHIK3DMVS(WId p_hWndDisplay);
     ~CHIK3DMVS();
 
     void enumDevices();
@@ -19,6 +20,9 @@ public:
     void processThread();
     void startGrabImage();
     void stopGrabImage();
+
+    void displayImage(MV3D_LP_IMAGE_DATA* p_imageData);
+    void saveImage(MV3D_LP_IMAGE_DATA* p_imageData);
 
 protected:
     void init();
@@ -33,4 +37,6 @@ private:
     HANDLE hProcessThread;
     bool m_bStartJob;
     DWORD m_threadid;
+
+    WId  m_hWndDisplay;
 };

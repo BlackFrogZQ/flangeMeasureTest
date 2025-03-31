@@ -16586,3 +16586,366 @@
 [2025-03-28 18:49:08:0575] | Info     | Manager.cpp              -L1221: [Start] end success.
 [2025-03-28 18:49:14:0110] | Info     | Manager.cpp              -L3427: [HfrVmDataProcess] malloc 1 buf.. totalBuf[free:0 + use:0]. 
 [2025-03-28 18:49:14:0111] | Info     | Manager.cpp              -L3704: [AlgorithmCalThreadProc]  malloc 1 buf.. totalBuf[free:0 + use:0]. 
+[2025-03-31 14:48:15:0173] | Info     | Manager.cpp              -L1374: ---------------------Start call Mv3dLp.dll start--------------------
+[2025-03-31 14:48:15:0173] | Info     | Manager.cpp              -L1378: Build Time[240824_13:34:21], SDK version[1.3.0].
+[2025-03-31 14:48:15:0173] | Info     | Manager.cpp              -L1380: Mv3dLp.dll path [C:\Program Files (x86)\Common Files\Mv3dLpSDK\Runtime\Win64_x64\Mv3dLp.dll]
+[2025-03-31 14:48:15:0173] | Info     | Manager.cpp              -L1381: Current ExE path [D:\programs\VSCode\Qt\chuanYi\flangeMeasureTest\build\Debug\Debug\flangeMeasureTest.exe]
+[2025-03-31 14:48:15:0173] | Info     | Manager.cpp              -L1386: Config (C:\Program Files (x86)\Common Files\Mv3dLpSDK\Runtime\Win64_x64\Mv3dLpCfg.ini) exist .
+[2025-03-31 14:48:15:0173] | Info     | Manager.cpp              -L1393: DebugMode[0], nLogSize[100].
+[2025-03-31 14:48:15:0173] | Info     | Manager.cpp              -L1002: [Init] Begin.
+[2025-03-31 14:48:15:0176] | Info     | Manager.cpp              -L1040: [Init] end success.
+[2025-03-31 14:48:15:0176] | Info     | Manager.cpp              -L0955: [CreateHandle] begin.
+[2025-03-31 14:48:15:0224] | Info     | CameraModule.cpp         -L0431: [CreateHandle] Get Gige Sdk version:(0x4030202).
+[2025-03-31 14:48:15:0502] | Info     | CameraModule.cpp         -L0312: [Enum] enum by gige sdk, get camera num:[1].
+[2025-03-31 14:48:15:0502] | Info     | CameraModule.cpp         -L0474: [CreateHandleBySomeWay] nCurrentIp[-1442937566].
+[2025-03-31 14:48:15:0502] | Error    | CameraModule.cpp         -L0481: [CreateHandleBySomeWay] camera module nDeviceNum:1.
+[2025-03-31 14:48:15:0502] | Info     | CameraModule.cpp         -L0524: [CreateHandle] camera module MV_CC_CreateHandle, macH:(0x34bd), macL:(0x205cb4de), CurrentIP:(0xa9fe8522), NetExport:(0xa9fe8516), SN:(00DA5741202).
+[2025-03-31 14:48:15:0502] | Info     | Manager.cpp              -L0995: [CreateHandle] end success.
+[2025-03-31 14:48:15:0502] | Info     | Manager.cpp              -L0848: [ConnectDevice] begin.
+[2025-03-31 14:48:15:0823] | Info     | Manager.cpp              -L0887: [ConnectDevice] Get m_nInvalidHeight value[0].
+[2025-03-31 14:48:15:0823] | Info     | Manager.cpp              -L0892: [ConnectDevice] Get m_nNodeCount value[3].
+[2025-03-31 14:48:15:0823] | Info     | Manager.cpp              -L0907: [ConnectDevice] Get BufferNode count from C:\Program Files (x86)\Common Files\Mv3dLpSDK\Runtime\Win64_x64\Mv3dLpCfg.ini\BufferNode, value[10].
+[2025-03-31 14:48:15:0826] | Info     | Manager.cpp              -L0915: [ConnectDevice] SetImageNodeNum value[10].
+[2025-03-31 14:48:15:0826] | Info     | Manager.cpp              -L0935: [ConnectDevice] chProcessOrder value[].
+[2025-03-31 14:48:15:0826] | Info     | Manager.cpp              -L0944: [ConnectDevice] success connect the camera(00DA5741202) Model(MV-DP3900-03P) version(V1.6.1 241224 1454180) ip(0xa9fe8522).
+[2025-03-31 14:48:15:0826] | Info     | Manager.cpp              -L0948: [ConnectDevice] end success.
+[2025-03-31 14:48:17:0880] | Info     | Manager.cpp              -L1127: [Start] begin.
+[2025-03-31 14:48:17:0881] | Info     | Manager.cpp              -L8534: [IsNewDl] Get Device3DCamerainfo Value:[16843008], nRet:[0].
+[2025-03-31 14:48:17:0881] | Info     | Manager.cpp              -L8538: [IsNewDl] this camera is not new LSL.
+[2025-03-31 14:48:17:0881] | Info     | Manager.cpp              -L3044: [IsHFRProfileMode] Get Device3DCamerainfo Value:[16843008], nRet:[0].
+[2025-03-31 14:48:17:0884] | Info     | Manager.cpp              -L3057: [IsHFRProfileMode] Get ImageMode, Value:[7], nRet:[0].
+[2025-03-31 14:48:17:0884] | Info     | Manager.cpp              -L3086: [IsHFRProfileMode] this camera is HFR and imagemode is pointcloud mode.
+[2025-03-31 14:48:17:0884] | Info     | Manager.cpp              -L3095: [InitAlgorithm] begin.
+[2025-03-31 14:48:17:0884] | Info     | Manager.cpp              -L3495: [HfrReleaseOutputBuffer] begin.
+[2025-03-31 14:48:17:0884] | Info     | Manager.cpp              -L3630: [HfrReleaseOutputBuffer] end.
+[2025-03-31 14:48:17:0884] | Info     | Manager.cpp              -L2700: [LoadCalHfrConfig] begin.
+[2025-03-31 14:48:17:0884] | Info     | Manager.cpp              -L2445: [LoadArithInfo] pstAbility->modu_enable value[32].
+[2025-03-31 14:48:17:0884] | Info     | Manager.cpp              -L2449: [LoadArithInfo] pstAbility->max_img_size.width value[5000].
+[2025-03-31 14:48:17:0884] | Info     | Manager.cpp              -L2450: [LoadArithInfo] pstAbility->max_img_size.height value[1456].
+[2025-03-31 14:48:17:0887] | Info     | Manager.cpp              -L2467: [LoadArithInfo] pstAbility->max_scan_rows value[1050].
+[2025-03-31 14:48:17:0889] | Info     | Manager.cpp              -L2481: [LoadArithInfo] pstAbility->max_x_range value[708614].
+[2025-03-31 14:48:17:0890] | Info     | Manager.cpp              -L2485: [LoadArithInfo] Get LSLScaleUnit_Reg Value:[100], nRet:[0].
+[2025-03-31 14:48:17:0897] | Info     | Manager.cpp              -L2500: [LoadArithInfo] pstAbility->min_x_scale value[22000].
+[2025-03-31 14:48:17:0897] | Info     | Manager.cpp              -L2503: [LoadArithInfo] ability->max_system_calib_img_num value[400].
+[2025-03-31 14:48:17:0900] | Info     | Manager.cpp              -L2512: [LoadArithInfo] Get LSL3DCoordType Value:[1], nRet:[0].
+[2025-03-31 14:48:17:0900] | Info     | Manager.cpp              -L2713: [LoadCalHfrConfig] loadArithInfo success.
+[2025-03-31 14:48:17:0900] | Info     | Manager.cpp              -L2719: [LoadCalHfrConfig] Get LSLScaleUnit_Reg Value:[100], nRet:[0].
+[2025-03-31 14:48:17:0900] | Info     | Manager.cpp              -L2724: [LoadCalHfrConfig] Get LSLStepDistanceUnit_Reg Value:[100], nRet:[0].
+[2025-03-31 14:48:17:0900] | Info     | Manager.cpp              -L2730: [LoadCalHfrConfig] Get Scandir Value:[1].
+[2025-03-31 14:48:17:0900] | Info     | Manager.cpp              -L2737: [LoadCalHfrConfig] Get LSLRIXScale Value:[22000.000000], nRet:[0].
+[2025-03-31 14:48:17:0902] | Info     | Manager.cpp              -L2744: [LoadCalHfrConfig] Get LSLRIYScale Value:[22000.000000], nRet:[0].
+[2025-03-31 14:48:17:0903] | Info     | Manager.cpp              -L2751: [LoadCalHfrConfig] Get LSLRIZScale Value:[2000.000000], nRet:[0].
+[2025-03-31 14:48:17:0906] | Info     | Manager.cpp              -L2758: [LoadCalHfrConfig] Get LSLRIXOffset Value:[-359948], nRet:[0].
+[2025-03-31 14:48:17:0907] | Info     | Manager.cpp              -L2765: [LoadCalHfrConfig] Get LSLRIYOffset Value:[0], nRet:[0].
+[2025-03-31 14:48:17:0910] | Info     | Manager.cpp              -L2772: [LoadCalHfrConfig] Get LSLRIZOffset Value:[-21659], nRet:[0].
+[2025-03-31 14:48:17:0910] | Info     | Manager.cpp              -L2779: [LoadCalHfrConfig] Get LSLRIXRange Value:[708614], nRet:[0].
+[2025-03-31 14:48:17:0912] | Info     | Manager.cpp              -L2786: [LoadCalHfrConfig] Get LSLStepDistance Value:[22000.000000], nRet:[0].
+[2025-03-31 14:48:17:0912] | Info     | Manager.cpp              -L2794: [LoadCalHfrConfig] Get LSLRangeImgHeight Value:[1050], nRet:[0].
+[2025-03-31 14:48:17:0914] | Info     | Manager.cpp              -L2817: [LoadCalHfrConfig] Get LSLRIOutImageType Value:[2], nRet:[0].
+[2025-03-31 14:48:17:0914] | Info     | Manager.cpp              -L2828: [LoadCalHfrConfig] Get LSLXInterpNum Value:[0], nRet:[0].
+[2025-03-31 14:48:17:0915] | Info     | Manager.cpp              -L2838: [LoadCalHfrConfig] Get LSLYInterpNum Value:[0], nRet:[0].
+[2025-03-31 14:48:17:0916] | Info     | Manager.cpp              -L2848: [LoadCalHfrConfig] Get LSLExpandNum Value:[0], nRet:[0].
+[2025-03-31 14:48:17:0916] | Info     | Manager.cpp              -L2858: [LoadCalHfrConfig] Get LSLExpandHoleThreshold Value:[20], nRet:[0].
+[2025-03-31 14:48:17:0917] | Info     | Manager.cpp              -L2868: [LoadCalHfrConfig] Get LSLProfileAddEmptyPntnum Value:[6], nRet:[0].
+[2025-03-31 14:48:17:0917] | Info     | Manager.cpp              -L2878: [LoadCalHfrConfig] Get LSLProfileAddRate Value:[156], nRet:[0].
+[2025-03-31 14:48:17:0919] | Info     | Manager.cpp              -L2896: [LoadCalHfrConfig] Get BinningSelector Value:[65537], nRet:[0].
+[2025-03-31 14:48:17:0920] | Info     | Manager.cpp              -L2903: [LoadCalHfrConfig] Get LSL3DCoordType Value:[1], nRet:[0].
+[2025-03-31 14:48:17:0920] | Info     | Manager.cpp              -L2909: [LoadCalHfrConfig] Get in_profile_mode Value:[2].
+[2025-03-31 14:48:17:0920] | Info     | Manager.cpp              -L2915: [LoadCalHfrConfig] Get RANGE_INVALID_HEIGHT Value:[0].
+[2025-03-31 14:48:17:0920] | Info     | Manager.cpp              -L2930: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_X_ENABLE Value:[0].
+[2025-03-31 14:48:17:0921] | Info     | Manager.cpp              -L2936: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_X_PRC_TIMES Value:[16].
+[2025-03-31 14:48:17:0921] | Info     | Manager.cpp              -L2942: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_X_RCO_TIMES Value:[16].
+[2025-03-31 14:48:17:0921] | Info     | Manager.cpp              -L2948: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_Y_ENABLE Value:[0].
+[2025-03-31 14:48:17:0921] | Info     | Manager.cpp              -L2954: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_Y_PRC_TIMES Value:[16].
+[2025-03-31 14:48:17:0921] | Info     | Manager.cpp              -L2960: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_Y_RCO_TIMES Value:[16].
+[2025-03-31 14:48:17:0923] | Info     | Manager.cpp              -L2967: [LoadCalHfrConfig] Get ImageMode Value:[7], nRet:[0].
+[2025-03-31 14:48:17:0923] | Info     | Manager.cpp              -L2988: [LoadCalHfrConfig] Get LSLProfileCoordXUnit Value:[20.000000], nRet:[0].
+[2025-03-31 14:48:17:0924] | Info     | Manager.cpp              -L3000: [LoadCalHfrConfig] Get LSLProfileCoordYUnit Value:[20.000000], nRet:[0].
+[2025-03-31 14:48:17:0925] | Info     | Manager.cpp              -L3012: [LoadCalHfrConfig] Get LSLProfileCoordZUnit Value:[20.000000], nRet:[0].
+[2025-03-31 14:48:17:0925] | Info     | Manager.cpp              -L3014: [LoadCalHfrConfig] end.
+[2025-03-31 14:48:17:0925] | Info     | Manager.cpp              -L3156: [InitAlgorithm] MV_CreateThread m_hThreadAlgorihmHandle Success.
+[2025-03-31 14:48:17:0925] | Info     | Manager.cpp              -L3171: [InitAlgorithm] MV_CreateThread m_hThreadAlgorihmHandleSecond Success.
+[2025-03-31 14:48:17:0927] | Info     | HfrStereoVm.cpp          -L0056: [CHfrStereoVm::Init] begin.
+[2025-03-31 14:48:17:0927] | Info     | HfrStereoVm.cpp          -L0083: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_GetMemSize success.
+[2025-03-31 14:48:17:0927] | Info     | HfrStereoVm.cpp          -L0090: [CHfrStereoVm::Init] m_stHfrMemTab[0].size[171884800] m_stHfrMemTab[1].size[167552].
+[2025-03-31 14:48:17:0927] | Info     | HfrStereoVm.cpp          -L0108: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_Create success.
+[2025-03-31 14:48:17:0927] | Info     | HfrStereoVm.cpp          -L0123: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig param success.
+[2025-03-31 14:48:17:0927] | Info     | Manager.cpp              -L3791: [AlgorithmCalThreadProcSecond] start. id[32260] start.
+[2025-03-31 14:48:17:0929] | Info     | Manager.cpp              -L3650: [AlgorithmCalThreadProc] start id[37232] start.
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0138: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig system param success.
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0187: [CHfrStereoVm::Init] end.
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0056: [CHfrStereoVm::Init] begin.
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0083: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_GetMemSize success.
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0090: [CHfrStereoVm::Init] m_stHfrMemTab[0].size[171884800] m_stHfrMemTab[1].size[167552].
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0108: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_Create success.
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0123: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig param success.
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0138: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig system param success.
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0187: [CHfrStereoVm::Init] end.
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0056: [CHfrStereoVm::Init] begin.
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0083: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_GetMemSize success.
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0090: [CHfrStereoVm::Init] m_stHfrMemTab[0].size[171884800] m_stHfrMemTab[1].size[167552].
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0108: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_Create success.
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0123: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig param success.
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0138: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig system param success.
+[2025-03-31 14:48:17:0933] | Info     | HfrStereoVm.cpp          -L0187: [CHfrStereoVm::Init] end.
+[2025-03-31 14:48:17:0933] | Info     | Manager.cpp              -L3244: [InitAlgorithm] m_nNodeCount[3] nRangeImageLen[6764160] nRangeIntensityLen[3382144] nProfileImageLen[46836096] nProfileIntensityLen[7806080].
+[2025-03-31 14:48:17:0933] | Info     | Manager.cpp              -L3255: [InitAlgorithm] end success.
+[2025-03-31 14:48:17:0933] | Info     | Manager.cpp              -L3263: [HfrMallocOutputBuffer] begin.
+[2025-03-31 14:48:17:0933] | Info     | Manager.cpp              -L3312: [HfrMallocOutputBuffer] end.
+[2025-03-31 14:48:17:0933] | Info     | Manager.cpp              -L1185: [Start] IsHFRProfileMode.
+[2025-03-31 14:48:17:0973] | Info     | Manager.cpp              -L1213: [Start] StartGrabbing success.
+[2025-03-31 14:48:17:0973] | Info     | Manager.cpp              -L1221: [Start] end success.
+[2025-03-31 14:48:23:0329] | Info     | Manager.cpp              -L3427: [HfrVmDataProcess] malloc 1 buf.. totalBuf[free:0 + use:0]. 
+[2025-03-31 14:48:23:0330] | Info     | Manager.cpp              -L3704: [AlgorithmCalThreadProc]  malloc 1 buf.. totalBuf[free:0 + use:0]. 
+[2025-03-31 14:48:34:0764] | Info     | Manager.cpp              -L1374: ---------------------Start call Mv3dLp.dll start--------------------
+[2025-03-31 14:48:34:0764] | Info     | Manager.cpp              -L1378: Build Time[240824_13:34:21], SDK version[1.3.0].
+[2025-03-31 14:48:34:0764] | Info     | Manager.cpp              -L1380: Mv3dLp.dll path [C:\Program Files (x86)\Common Files\Mv3dLpSDK\Runtime\Win64_x64\Mv3dLp.dll]
+[2025-03-31 14:48:34:0764] | Info     | Manager.cpp              -L1381: Current ExE path [D:\programs\VSCode\Qt\chuanYi\flangeMeasureTest\build\Debug\Debug\flangeMeasureTest.exe]
+[2025-03-31 14:48:34:0764] | Info     | Manager.cpp              -L1386: Config (C:\Program Files (x86)\Common Files\Mv3dLpSDK\Runtime\Win64_x64\Mv3dLpCfg.ini) exist .
+[2025-03-31 14:48:34:0764] | Info     | Manager.cpp              -L1393: DebugMode[0], nLogSize[100].
+[2025-03-31 14:48:34:0764] | Info     | Manager.cpp              -L1002: [Init] Begin.
+[2025-03-31 14:48:34:0769] | Info     | Manager.cpp              -L1040: [Init] end success.
+[2025-03-31 14:48:34:0808] | Info     | Manager.cpp              -L6302: [SaveImage] SaveImage cost time [16.543800].
+[2025-03-31 14:48:46:0272] | Info     | Manager.cpp              -L6302: [SaveImage] SaveImage cost time [14.693700].
+[2025-03-31 14:50:36:0399] | Info     | Manager.cpp              -L1374: ---------------------Start call Mv3dLp.dll start--------------------
+[2025-03-31 14:50:36:0400] | Info     | Manager.cpp              -L1378: Build Time[240824_13:34:21], SDK version[1.3.0].
+[2025-03-31 14:50:36:0400] | Info     | Manager.cpp              -L1380: Mv3dLp.dll path [C:\Program Files (x86)\Common Files\Mv3dLpSDK\Runtime\Win64_x64\Mv3dLp.dll]
+[2025-03-31 14:50:36:0400] | Info     | Manager.cpp              -L1381: Current ExE path [D:\programs\VSCode\Qt\chuanYi\flangeMeasureTest\build\Debug\Debug\flangeMeasureTest.exe]
+[2025-03-31 14:50:36:0400] | Info     | Manager.cpp              -L1386: Config (C:\Program Files (x86)\Common Files\Mv3dLpSDK\Runtime\Win64_x64\Mv3dLpCfg.ini) exist .
+[2025-03-31 14:50:36:0400] | Info     | Manager.cpp              -L1393: DebugMode[0], nLogSize[100].
+[2025-03-31 14:50:36:0400] | Info     | Manager.cpp              -L1002: [Init] Begin.
+[2025-03-31 14:50:36:0402] | Info     | Manager.cpp              -L1040: [Init] end success.
+[2025-03-31 14:50:36:0402] | Info     | Manager.cpp              -L0955: [CreateHandle] begin.
+[2025-03-31 14:50:36:0402] | Info     | CameraModule.cpp         -L0431: [CreateHandle] Get Gige Sdk version:(0x4030202).
+[2025-03-31 14:50:36:0620] | Info     | CameraModule.cpp         -L0312: [Enum] enum by gige sdk, get camera num:[1].
+[2025-03-31 14:50:36:0620] | Info     | CameraModule.cpp         -L0474: [CreateHandleBySomeWay] nCurrentIp[-1442937566].
+[2025-03-31 14:50:36:0620] | Error    | CameraModule.cpp         -L0481: [CreateHandleBySomeWay] camera module nDeviceNum:1.
+[2025-03-31 14:50:36:0620] | Info     | CameraModule.cpp         -L0524: [CreateHandle] camera module MV_CC_CreateHandle, macH:(0x34bd), macL:(0x205cb4de), CurrentIP:(0xa9fe8522), NetExport:(0xa9fe8516), SN:(00DA5741202).
+[2025-03-31 14:50:36:0620] | Info     | Manager.cpp              -L0995: [CreateHandle] end success.
+[2025-03-31 14:50:36:0620] | Info     | Manager.cpp              -L0848: [ConnectDevice] begin.
+[2025-03-31 14:50:37:0020] | Info     | Manager.cpp              -L0887: [ConnectDevice] Get m_nInvalidHeight value[0].
+[2025-03-31 14:50:37:0020] | Info     | Manager.cpp              -L0892: [ConnectDevice] Get m_nNodeCount value[3].
+[2025-03-31 14:50:37:0021] | Info     | Manager.cpp              -L0907: [ConnectDevice] Get BufferNode count from C:\Program Files (x86)\Common Files\Mv3dLpSDK\Runtime\Win64_x64\Mv3dLpCfg.ini\BufferNode, value[10].
+[2025-03-31 14:50:37:0022] | Info     | Manager.cpp              -L0915: [ConnectDevice] SetImageNodeNum value[10].
+[2025-03-31 14:50:37:0027] | Info     | Manager.cpp              -L0935: [ConnectDevice] chProcessOrder value[].
+[2025-03-31 14:50:37:0027] | Info     | Manager.cpp              -L0944: [ConnectDevice] success connect the camera(00DA5741202) Model(MV-DP3900-03P) version(V1.6.1 241224 1454180) ip(0xa9fe8522).
+[2025-03-31 14:50:37:0027] | Info     | Manager.cpp              -L0948: [ConnectDevice] end success.
+[2025-03-31 14:50:38:0663] | Info     | Manager.cpp              -L1127: [Start] begin.
+[2025-03-31 14:50:38:0665] | Info     | Manager.cpp              -L8534: [IsNewDl] Get Device3DCamerainfo Value:[16843008], nRet:[0].
+[2025-03-31 14:50:38:0665] | Info     | Manager.cpp              -L8538: [IsNewDl] this camera is not new LSL.
+[2025-03-31 14:50:38:0665] | Info     | Manager.cpp              -L3044: [IsHFRProfileMode] Get Device3DCamerainfo Value:[16843008], nRet:[0].
+[2025-03-31 14:50:38:0667] | Info     | Manager.cpp              -L3057: [IsHFRProfileMode] Get ImageMode, Value:[7], nRet:[0].
+[2025-03-31 14:50:38:0667] | Info     | Manager.cpp              -L3086: [IsHFRProfileMode] this camera is HFR and imagemode is pointcloud mode.
+[2025-03-31 14:50:38:0667] | Info     | Manager.cpp              -L3095: [InitAlgorithm] begin.
+[2025-03-31 14:50:38:0667] | Info     | Manager.cpp              -L3495: [HfrReleaseOutputBuffer] begin.
+[2025-03-31 14:50:38:0667] | Info     | Manager.cpp              -L3630: [HfrReleaseOutputBuffer] end.
+[2025-03-31 14:50:38:0667] | Info     | Manager.cpp              -L2700: [LoadCalHfrConfig] begin.
+[2025-03-31 14:50:38:0667] | Info     | Manager.cpp              -L2445: [LoadArithInfo] pstAbility->modu_enable value[32].
+[2025-03-31 14:50:38:0667] | Info     | Manager.cpp              -L2449: [LoadArithInfo] pstAbility->max_img_size.width value[5000].
+[2025-03-31 14:50:38:0667] | Info     | Manager.cpp              -L2450: [LoadArithInfo] pstAbility->max_img_size.height value[1456].
+[2025-03-31 14:50:38:0669] | Info     | Manager.cpp              -L2467: [LoadArithInfo] pstAbility->max_scan_rows value[1050].
+[2025-03-31 14:50:38:0670] | Info     | Manager.cpp              -L2481: [LoadArithInfo] pstAbility->max_x_range value[708614].
+[2025-03-31 14:50:38:0671] | Info     | Manager.cpp              -L2485: [LoadArithInfo] Get LSLScaleUnit_Reg Value:[100], nRet:[0].
+[2025-03-31 14:50:38:0672] | Info     | Manager.cpp              -L2500: [LoadArithInfo] pstAbility->min_x_scale value[22000].
+[2025-03-31 14:50:38:0672] | Info     | Manager.cpp              -L2503: [LoadArithInfo] ability->max_system_calib_img_num value[400].
+[2025-03-31 14:50:38:0674] | Info     | Manager.cpp              -L2512: [LoadArithInfo] Get LSL3DCoordType Value:[1], nRet:[0].
+[2025-03-31 14:50:38:0674] | Info     | Manager.cpp              -L2713: [LoadCalHfrConfig] loadArithInfo success.
+[2025-03-31 14:50:38:0674] | Info     | Manager.cpp              -L2719: [LoadCalHfrConfig] Get LSLScaleUnit_Reg Value:[100], nRet:[0].
+[2025-03-31 14:50:38:0674] | Info     | Manager.cpp              -L2724: [LoadCalHfrConfig] Get LSLStepDistanceUnit_Reg Value:[100], nRet:[0].
+[2025-03-31 14:50:38:0674] | Info     | Manager.cpp              -L2730: [LoadCalHfrConfig] Get Scandir Value:[1].
+[2025-03-31 14:50:38:0674] | Info     | Manager.cpp              -L2737: [LoadCalHfrConfig] Get LSLRIXScale Value:[22000.000000], nRet:[0].
+[2025-03-31 14:50:38:0675] | Info     | Manager.cpp              -L2744: [LoadCalHfrConfig] Get LSLRIYScale Value:[22000.000000], nRet:[0].
+[2025-03-31 14:50:38:0677] | Info     | Manager.cpp              -L2751: [LoadCalHfrConfig] Get LSLRIZScale Value:[2000.000000], nRet:[0].
+[2025-03-31 14:50:38:0679] | Info     | Manager.cpp              -L2758: [LoadCalHfrConfig] Get LSLRIXOffset Value:[-359948], nRet:[0].
+[2025-03-31 14:50:38:0680] | Info     | Manager.cpp              -L2765: [LoadCalHfrConfig] Get LSLRIYOffset Value:[0], nRet:[0].
+[2025-03-31 14:50:38:0682] | Info     | Manager.cpp              -L2772: [LoadCalHfrConfig] Get LSLRIZOffset Value:[-21659], nRet:[0].
+[2025-03-31 14:50:38:0682] | Info     | Manager.cpp              -L2779: [LoadCalHfrConfig] Get LSLRIXRange Value:[708614], nRet:[0].
+[2025-03-31 14:50:38:0684] | Info     | Manager.cpp              -L2786: [LoadCalHfrConfig] Get LSLStepDistance Value:[22000.000000], nRet:[0].
+[2025-03-31 14:50:38:0684] | Info     | Manager.cpp              -L2794: [LoadCalHfrConfig] Get LSLRangeImgHeight Value:[1050], nRet:[0].
+[2025-03-31 14:50:38:0685] | Info     | Manager.cpp              -L2817: [LoadCalHfrConfig] Get LSLRIOutImageType Value:[2], nRet:[0].
+[2025-03-31 14:50:38:0685] | Info     | Manager.cpp              -L2828: [LoadCalHfrConfig] Get LSLXInterpNum Value:[0], nRet:[0].
+[2025-03-31 14:50:38:0686] | Info     | Manager.cpp              -L2838: [LoadCalHfrConfig] Get LSLYInterpNum Value:[0], nRet:[0].
+[2025-03-31 14:50:38:0686] | Info     | Manager.cpp              -L2848: [LoadCalHfrConfig] Get LSLExpandNum Value:[0], nRet:[0].
+[2025-03-31 14:50:38:0687] | Info     | Manager.cpp              -L2858: [LoadCalHfrConfig] Get LSLExpandHoleThreshold Value:[20], nRet:[0].
+[2025-03-31 14:50:38:0687] | Info     | Manager.cpp              -L2868: [LoadCalHfrConfig] Get LSLProfileAddEmptyPntnum Value:[6], nRet:[0].
+[2025-03-31 14:50:38:0688] | Info     | Manager.cpp              -L2878: [LoadCalHfrConfig] Get LSLProfileAddRate Value:[156], nRet:[0].
+[2025-03-31 14:50:38:0689] | Info     | Manager.cpp              -L2896: [LoadCalHfrConfig] Get BinningSelector Value:[65537], nRet:[0].
+[2025-03-31 14:50:38:0690] | Info     | Manager.cpp              -L2903: [LoadCalHfrConfig] Get LSL3DCoordType Value:[1], nRet:[0].
+[2025-03-31 14:50:38:0690] | Info     | Manager.cpp              -L2909: [LoadCalHfrConfig] Get in_profile_mode Value:[2].
+[2025-03-31 14:50:38:0690] | Info     | Manager.cpp              -L2915: [LoadCalHfrConfig] Get RANGE_INVALID_HEIGHT Value:[0].
+[2025-03-31 14:50:38:0690] | Info     | Manager.cpp              -L2930: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_X_ENABLE Value:[0].
+[2025-03-31 14:50:38:0690] | Info     | Manager.cpp              -L2936: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_X_PRC_TIMES Value:[16].
+[2025-03-31 14:50:38:0690] | Info     | Manager.cpp              -L2942: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_X_RCO_TIMES Value:[16].
+[2025-03-31 14:50:38:0690] | Info     | Manager.cpp              -L2948: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_Y_ENABLE Value:[0].
+[2025-03-31 14:50:38:0690] | Info     | Manager.cpp              -L2954: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_Y_PRC_TIMES Value:[16].
+[2025-03-31 14:50:38:0691] | Info     | Manager.cpp              -L2960: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_Y_RCO_TIMES Value:[16].
+[2025-03-31 14:50:38:0692] | Info     | Manager.cpp              -L2967: [LoadCalHfrConfig] Get ImageMode Value:[7], nRet:[0].
+[2025-03-31 14:50:38:0692] | Info     | Manager.cpp              -L2988: [LoadCalHfrConfig] Get LSLProfileCoordXUnit Value:[20.000000], nRet:[0].
+[2025-03-31 14:50:38:0692] | Info     | Manager.cpp              -L3000: [LoadCalHfrConfig] Get LSLProfileCoordYUnit Value:[20.000000], nRet:[0].
+[2025-03-31 14:50:38:0693] | Info     | Manager.cpp              -L3012: [LoadCalHfrConfig] Get LSLProfileCoordZUnit Value:[20.000000], nRet:[0].
+[2025-03-31 14:50:38:0693] | Info     | Manager.cpp              -L3014: [LoadCalHfrConfig] end.
+[2025-03-31 14:50:38:0693] | Info     | Manager.cpp              -L3156: [InitAlgorithm] MV_CreateThread m_hThreadAlgorihmHandle Success.
+[2025-03-31 14:50:38:0693] | Info     | Manager.cpp              -L3171: [InitAlgorithm] MV_CreateThread m_hThreadAlgorihmHandleSecond Success.
+[2025-03-31 14:50:38:0693] | Info     | HfrStereoVm.cpp          -L0056: [CHfrStereoVm::Init] begin.
+[2025-03-31 14:50:38:0693] | Info     | HfrStereoVm.cpp          -L0083: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_GetMemSize success.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0090: [CHfrStereoVm::Init] m_stHfrMemTab[0].size[171884800] m_stHfrMemTab[1].size[167552].
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0108: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_Create success.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0123: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig param success.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0138: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig system param success.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0187: [CHfrStereoVm::Init] end.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0056: [CHfrStereoVm::Init] begin.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0083: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_GetMemSize success.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0090: [CHfrStereoVm::Init] m_stHfrMemTab[0].size[171884800] m_stHfrMemTab[1].size[167552].
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0108: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_Create success.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0123: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig param success.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0138: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig system param success.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0187: [CHfrStereoVm::Init] end.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0056: [CHfrStereoVm::Init] begin.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0083: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_GetMemSize success.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0090: [CHfrStereoVm::Init] m_stHfrMemTab[0].size[171884800] m_stHfrMemTab[1].size[167552].
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0108: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_Create success.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0123: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig param success.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0138: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig system param success.
+[2025-03-31 14:50:38:0695] | Info     | HfrStereoVm.cpp          -L0187: [CHfrStereoVm::Init] end.
+[2025-03-31 14:50:38:0695] | Info     | Manager.cpp              -L3244: [InitAlgorithm] m_nNodeCount[3] nRangeImageLen[6764160] nRangeIntensityLen[3382144] nProfileImageLen[46836096] nProfileIntensityLen[7806080].
+[2025-03-31 14:50:38:0695] | Info     | Manager.cpp              -L3255: [InitAlgorithm] end success.
+[2025-03-31 14:50:38:0695] | Info     | Manager.cpp              -L3263: [HfrMallocOutputBuffer] begin.
+[2025-03-31 14:50:38:0695] | Info     | Manager.cpp              -L3312: [HfrMallocOutputBuffer] end.
+[2025-03-31 14:50:38:0695] | Info     | Manager.cpp              -L1185: [Start] IsHFRProfileMode.
+[2025-03-31 14:50:38:0695] | Info     | Manager.cpp              -L3791: [AlgorithmCalThreadProcSecond] start. id[21680] start.
+[2025-03-31 14:50:38:0695] | Info     | Manager.cpp              -L3650: [AlgorithmCalThreadProc] start id[27096] start.
+[2025-03-31 14:50:38:0726] | Info     | Manager.cpp              -L1213: [Start] StartGrabbing success.
+[2025-03-31 14:50:38:0726] | Info     | Manager.cpp              -L1221: [Start] end success.
+[2025-03-31 14:50:44:0588] | Info     | Manager.cpp              -L3427: [HfrVmDataProcess] malloc 1 buf.. totalBuf[free:0 + use:0]. 
+[2025-03-31 14:50:44:0588] | Info     | Manager.cpp              -L3704: [AlgorithmCalThreadProc]  malloc 1 buf.. totalBuf[free:0 + use:0]. 
+[2025-03-31 14:50:56:0029] | Info     | Manager.cpp              -L1374: ---------------------Start call Mv3dLp.dll start--------------------
+[2025-03-31 14:50:56:0029] | Info     | Manager.cpp              -L1378: Build Time[240824_13:34:21], SDK version[1.3.0].
+[2025-03-31 14:50:56:0029] | Info     | Manager.cpp              -L1380: Mv3dLp.dll path [C:\Program Files (x86)\Common Files\Mv3dLpSDK\Runtime\Win64_x64\Mv3dLp.dll]
+[2025-03-31 14:50:56:0029] | Info     | Manager.cpp              -L1381: Current ExE path [D:\programs\VSCode\Qt\chuanYi\flangeMeasureTest\build\Debug\Debug\flangeMeasureTest.exe]
+[2025-03-31 14:50:56:0029] | Info     | Manager.cpp              -L1386: Config (C:\Program Files (x86)\Common Files\Mv3dLpSDK\Runtime\Win64_x64\Mv3dLpCfg.ini) exist .
+[2025-03-31 14:50:56:0029] | Info     | Manager.cpp              -L1393: DebugMode[0], nLogSize[100].
+[2025-03-31 14:50:56:0029] | Info     | Manager.cpp              -L1002: [Init] Begin.
+[2025-03-31 14:50:56:0031] | Info     | Manager.cpp              -L1040: [Init] end success.
+[2025-03-31 14:50:56:0052] | Info     | Manager.cpp              -L6302: [SaveImage] SaveImage cost time [10.248800].
+[2025-03-31 14:51:07:0531] | Info     | Manager.cpp              -L6302: [SaveImage] SaveImage cost time [8.036800].
+[2025-03-31 14:51:07:0794] | Info     | Manager.cpp              -L6302: [SaveImage] SaveImage cost time [8.667800].
+[2025-03-31 15:43:31:0130] | Info     | Manager.cpp              -L1374: ---------------------Start call Mv3dLp.dll start--------------------
+[2025-03-31 15:43:31:0131] | Info     | Manager.cpp              -L1378: Build Time[240824_13:34:21], SDK version[1.3.0].
+[2025-03-31 15:43:31:0131] | Info     | Manager.cpp              -L1380: Mv3dLp.dll path [C:\Program Files (x86)\Common Files\Mv3dLpSDK\Runtime\Win64_x64\Mv3dLp.dll]
+[2025-03-31 15:43:31:0131] | Info     | Manager.cpp              -L1381: Current ExE path [D:\programs\VSCode\Qt\chuanYi\flangeMeasureTest\build\Debug\Debug\flangeMeasureTest.exe]
+[2025-03-31 15:43:31:0131] | Info     | Manager.cpp              -L1386: Config (C:\Program Files (x86)\Common Files\Mv3dLpSDK\Runtime\Win64_x64\Mv3dLpCfg.ini) exist .
+[2025-03-31 15:43:31:0131] | Info     | Manager.cpp              -L1393: DebugMode[0], nLogSize[100].
+[2025-03-31 15:43:31:0131] | Info     | Manager.cpp              -L1002: [Init] Begin.
+[2025-03-31 15:43:31:0132] | Info     | Manager.cpp              -L1040: [Init] end success.
+[2025-03-31 15:43:31:0132] | Info     | Manager.cpp              -L0955: [CreateHandle] begin.
+[2025-03-31 15:43:31:0132] | Info     | CameraModule.cpp         -L0431: [CreateHandle] Get Gige Sdk version:(0x4030202).
+[2025-03-31 15:43:31:0345] | Info     | CameraModule.cpp         -L0312: [Enum] enum by gige sdk, get camera num:[1].
+[2025-03-31 15:43:31:0345] | Info     | CameraModule.cpp         -L0474: [CreateHandleBySomeWay] nCurrentIp[-1442937566].
+[2025-03-31 15:43:31:0345] | Error    | CameraModule.cpp         -L0481: [CreateHandleBySomeWay] camera module nDeviceNum:1.
+[2025-03-31 15:43:31:0346] | Info     | CameraModule.cpp         -L0524: [CreateHandle] camera module MV_CC_CreateHandle, macH:(0x34bd), macL:(0x205cb4de), CurrentIP:(0xa9fe8522), NetExport:(0xa9fe8516), SN:(00DA5741202).
+[2025-03-31 15:43:31:0346] | Info     | Manager.cpp              -L0995: [CreateHandle] end success.
+[2025-03-31 15:43:31:0346] | Info     | Manager.cpp              -L0848: [ConnectDevice] begin.
+[2025-03-31 15:43:31:0798] | Info     | Manager.cpp              -L0887: [ConnectDevice] Get m_nInvalidHeight value[0].
+[2025-03-31 15:43:31:0798] | Info     | Manager.cpp              -L0892: [ConnectDevice] Get m_nNodeCount value[3].
+[2025-03-31 15:43:31:0798] | Info     | Manager.cpp              -L0907: [ConnectDevice] Get BufferNode count from C:\Program Files (x86)\Common Files\Mv3dLpSDK\Runtime\Win64_x64\Mv3dLpCfg.ini\BufferNode, value[10].
+[2025-03-31 15:43:31:0806] | Info     | Manager.cpp              -L0915: [ConnectDevice] SetImageNodeNum value[10].
+[2025-03-31 15:43:31:0806] | Info     | Manager.cpp              -L0935: [ConnectDevice] chProcessOrder value[].
+[2025-03-31 15:43:31:0806] | Info     | Manager.cpp              -L0944: [ConnectDevice] success connect the camera(00DA5741202) Model(MV-DP3900-03P) version(V1.6.1 241224 1454180) ip(0xa9fe8522).
+[2025-03-31 15:43:31:0806] | Info     | Manager.cpp              -L0948: [ConnectDevice] end success.
+[2025-03-31 15:43:32:0595] | Info     | Manager.cpp              -L1127: [Start] begin.
+[2025-03-31 15:43:32:0597] | Info     | Manager.cpp              -L8534: [IsNewDl] Get Device3DCamerainfo Value:[16843008], nRet:[0].
+[2025-03-31 15:43:32:0597] | Info     | Manager.cpp              -L8538: [IsNewDl] this camera is not new LSL.
+[2025-03-31 15:43:32:0597] | Info     | Manager.cpp              -L3044: [IsHFRProfileMode] Get Device3DCamerainfo Value:[16843008], nRet:[0].
+[2025-03-31 15:43:32:0599] | Info     | Manager.cpp              -L3057: [IsHFRProfileMode] Get ImageMode, Value:[7], nRet:[0].
+[2025-03-31 15:43:32:0599] | Info     | Manager.cpp              -L3086: [IsHFRProfileMode] this camera is HFR and imagemode is pointcloud mode.
+[2025-03-31 15:43:32:0599] | Info     | Manager.cpp              -L3095: [InitAlgorithm] begin.
+[2025-03-31 15:43:32:0599] | Info     | Manager.cpp              -L3495: [HfrReleaseOutputBuffer] begin.
+[2025-03-31 15:43:32:0599] | Info     | Manager.cpp              -L3630: [HfrReleaseOutputBuffer] end.
+[2025-03-31 15:43:32:0599] | Info     | Manager.cpp              -L2700: [LoadCalHfrConfig] begin.
+[2025-03-31 15:43:32:0599] | Info     | Manager.cpp              -L2445: [LoadArithInfo] pstAbility->modu_enable value[32].
+[2025-03-31 15:43:32:0599] | Info     | Manager.cpp              -L2449: [LoadArithInfo] pstAbility->max_img_size.width value[5000].
+[2025-03-31 15:43:32:0599] | Info     | Manager.cpp              -L2450: [LoadArithInfo] pstAbility->max_img_size.height value[1456].
+[2025-03-31 15:43:32:0602] | Info     | Manager.cpp              -L2467: [LoadArithInfo] pstAbility->max_scan_rows value[1050].
+[2025-03-31 15:43:32:0604] | Info     | Manager.cpp              -L2481: [LoadArithInfo] pstAbility->max_x_range value[708614].
+[2025-03-31 15:43:32:0605] | Info     | Manager.cpp              -L2485: [LoadArithInfo] Get LSLScaleUnit_Reg Value:[100], nRet:[0].
+[2025-03-31 15:43:32:0611] | Info     | Manager.cpp              -L2500: [LoadArithInfo] pstAbility->min_x_scale value[22000].
+[2025-03-31 15:43:32:0611] | Info     | Manager.cpp              -L2503: [LoadArithInfo] ability->max_system_calib_img_num value[400].
+[2025-03-31 15:43:32:0612] | Info     | Manager.cpp              -L2512: [LoadArithInfo] Get LSL3DCoordType Value:[1], nRet:[0].
+[2025-03-31 15:43:32:0612] | Info     | Manager.cpp              -L2713: [LoadCalHfrConfig] loadArithInfo success.
+[2025-03-31 15:43:32:0612] | Info     | Manager.cpp              -L2719: [LoadCalHfrConfig] Get LSLScaleUnit_Reg Value:[100], nRet:[0].
+[2025-03-31 15:43:32:0613] | Info     | Manager.cpp              -L2724: [LoadCalHfrConfig] Get LSLStepDistanceUnit_Reg Value:[100], nRet:[0].
+[2025-03-31 15:43:32:0613] | Info     | Manager.cpp              -L2730: [LoadCalHfrConfig] Get Scandir Value:[1].
+[2025-03-31 15:43:32:0613] | Info     | Manager.cpp              -L2737: [LoadCalHfrConfig] Get LSLRIXScale Value:[22000.000000], nRet:[0].
+[2025-03-31 15:43:32:0615] | Info     | Manager.cpp              -L2744: [LoadCalHfrConfig] Get LSLRIYScale Value:[22000.000000], nRet:[0].
+[2025-03-31 15:43:32:0617] | Info     | Manager.cpp              -L2751: [LoadCalHfrConfig] Get LSLRIZScale Value:[2000.000000], nRet:[0].
+[2025-03-31 15:43:32:0619] | Info     | Manager.cpp              -L2758: [LoadCalHfrConfig] Get LSLRIXOffset Value:[-359948], nRet:[0].
+[2025-03-31 15:43:32:0621] | Info     | Manager.cpp              -L2765: [LoadCalHfrConfig] Get LSLRIYOffset Value:[0], nRet:[0].
+[2025-03-31 15:43:32:0623] | Info     | Manager.cpp              -L2772: [LoadCalHfrConfig] Get LSLRIZOffset Value:[-21659], nRet:[0].
+[2025-03-31 15:43:32:0623] | Info     | Manager.cpp              -L2779: [LoadCalHfrConfig] Get LSLRIXRange Value:[708614], nRet:[0].
+[2025-03-31 15:43:32:0625] | Info     | Manager.cpp              -L2786: [LoadCalHfrConfig] Get LSLStepDistance Value:[22000.000000], nRet:[0].
+[2025-03-31 15:43:32:0625] | Info     | Manager.cpp              -L2794: [LoadCalHfrConfig] Get LSLRangeImgHeight Value:[1050], nRet:[0].
+[2025-03-31 15:43:32:0627] | Info     | Manager.cpp              -L2817: [LoadCalHfrConfig] Get LSLRIOutImageType Value:[2], nRet:[0].
+[2025-03-31 15:43:32:0627] | Info     | Manager.cpp              -L2828: [LoadCalHfrConfig] Get LSLXInterpNum Value:[0], nRet:[0].
+[2025-03-31 15:43:32:0628] | Info     | Manager.cpp              -L2838: [LoadCalHfrConfig] Get LSLYInterpNum Value:[0], nRet:[0].
+[2025-03-31 15:43:32:0628] | Info     | Manager.cpp              -L2848: [LoadCalHfrConfig] Get LSLExpandNum Value:[0], nRet:[0].
+[2025-03-31 15:43:32:0629] | Info     | Manager.cpp              -L2858: [LoadCalHfrConfig] Get LSLExpandHoleThreshold Value:[20], nRet:[0].
+[2025-03-31 15:43:32:0630] | Info     | Manager.cpp              -L2868: [LoadCalHfrConfig] Get LSLProfileAddEmptyPntnum Value:[6], nRet:[0].
+[2025-03-31 15:43:32:0630] | Info     | Manager.cpp              -L2878: [LoadCalHfrConfig] Get LSLProfileAddRate Value:[156], nRet:[0].
+[2025-03-31 15:43:32:0632] | Info     | Manager.cpp              -L2896: [LoadCalHfrConfig] Get BinningSelector Value:[65537], nRet:[0].
+[2025-03-31 15:43:32:0633] | Info     | Manager.cpp              -L2903: [LoadCalHfrConfig] Get LSL3DCoordType Value:[1], nRet:[0].
+[2025-03-31 15:43:32:0633] | Info     | Manager.cpp              -L2909: [LoadCalHfrConfig] Get in_profile_mode Value:[2].
+[2025-03-31 15:43:32:0633] | Info     | Manager.cpp              -L2915: [LoadCalHfrConfig] Get RANGE_INVALID_HEIGHT Value:[0].
+[2025-03-31 15:43:32:0633] | Info     | Manager.cpp              -L2930: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_X_ENABLE Value:[0].
+[2025-03-31 15:43:32:0633] | Info     | Manager.cpp              -L2936: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_X_PRC_TIMES Value:[16].
+[2025-03-31 15:43:32:0633] | Info     | Manager.cpp              -L2942: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_X_RCO_TIMES Value:[16].
+[2025-03-31 15:43:32:0633] | Info     | Manager.cpp              -L2948: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_Y_ENABLE Value:[0].
+[2025-03-31 15:43:32:0633] | Info     | Manager.cpp              -L2954: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_Y_PRC_TIMES Value:[16].
+[2025-03-31 15:43:32:0633] | Info     | Manager.cpp              -L2960: [LoadCalHfrConfig] Get MVB3D_SENSOR_LSL_PARAM_RANGE_INVALID_DATA_Y_RCO_TIMES Value:[16].
+[2025-03-31 15:43:32:0634] | Info     | Manager.cpp              -L2967: [LoadCalHfrConfig] Get ImageMode Value:[7], nRet:[0].
+[2025-03-31 15:43:32:0635] | Info     | Manager.cpp              -L2988: [LoadCalHfrConfig] Get LSLProfileCoordXUnit Value:[20.000000], nRet:[0].
+[2025-03-31 15:43:32:0635] | Info     | Manager.cpp              -L3000: [LoadCalHfrConfig] Get LSLProfileCoordYUnit Value:[20.000000], nRet:[0].
+[2025-03-31 15:43:32:0636] | Info     | Manager.cpp              -L3012: [LoadCalHfrConfig] Get LSLProfileCoordZUnit Value:[20.000000], nRet:[0].
+[2025-03-31 15:43:32:0636] | Info     | Manager.cpp              -L3014: [LoadCalHfrConfig] end.
+[2025-03-31 15:43:32:0636] | Info     | Manager.cpp              -L3156: [InitAlgorithm] MV_CreateThread m_hThreadAlgorihmHandle Success.
+[2025-03-31 15:43:32:0636] | Info     | Manager.cpp              -L3171: [InitAlgorithm] MV_CreateThread m_hThreadAlgorihmHandleSecond Success.
+[2025-03-31 15:43:32:0638] | Info     | HfrStereoVm.cpp          -L0056: [CHfrStereoVm::Init] begin.
+[2025-03-31 15:43:32:0638] | Info     | HfrStereoVm.cpp          -L0083: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_GetMemSize success.
+[2025-03-31 15:43:32:0638] | Info     | HfrStereoVm.cpp          -L0090: [CHfrStereoVm::Init] m_stHfrMemTab[0].size[171884800] m_stHfrMemTab[1].size[167552].
+[2025-03-31 15:43:32:0638] | Info     | HfrStereoVm.cpp          -L0108: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_Create success.
+[2025-03-31 15:43:32:0638] | Info     | HfrStereoVm.cpp          -L0123: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig param success.
+[2025-03-31 15:43:32:0639] | Info     | Manager.cpp              -L3791: [AlgorithmCalThreadProcSecond] start. id[28372] start.
+[2025-03-31 15:43:32:0639] | Info     | Manager.cpp              -L3650: [AlgorithmCalThreadProc] start id[19912] start.
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0138: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig system param success.
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0187: [CHfrStereoVm::Init] end.
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0056: [CHfrStereoVm::Init] begin.
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0083: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_GetMemSize success.
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0090: [CHfrStereoVm::Init] m_stHfrMemTab[0].size[171884800] m_stHfrMemTab[1].size[167552].
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0108: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_Create success.
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0123: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig param success.
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0138: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig system param success.
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0187: [CHfrStereoVm::Init] end.
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0056: [CHfrStereoVm::Init] begin.
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0083: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_GetMemSize success.
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0090: [CHfrStereoVm::Init] m_stHfrMemTab[0].size[171884800] m_stHfrMemTab[1].size[167552].
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0108: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_Create success.
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0123: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig param success.
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0138: [CHfrStereoVm::Init] MVB3D_SENSOR_LSL_SetConfig system param success.
+[2025-03-31 15:43:32:0643] | Info     | HfrStereoVm.cpp          -L0187: [CHfrStereoVm::Init] end.
+[2025-03-31 15:43:32:0643] | Info     | Manager.cpp              -L3244: [InitAlgorithm] m_nNodeCount[3] nRangeImageLen[6764160] nRangeIntensityLen[3382144] nProfileImageLen[46836096] nProfileIntensityLen[7806080].
+[2025-03-31 15:43:32:0643] | Info     | Manager.cpp              -L3255: [InitAlgorithm] end success.
+[2025-03-31 15:43:32:0643] | Info     | Manager.cpp              -L3263: [HfrMallocOutputBuffer] begin.
+[2025-03-31 15:43:32:0643] | Info     | Manager.cpp              -L3312: [HfrMallocOutputBuffer] end.
+[2025-03-31 15:43:32:0643] | Info     | Manager.cpp              -L1185: [Start] IsHFRProfileMode.
+[2025-03-31 15:43:32:0680] | Info     | Manager.cpp              -L1213: [Start] StartGrabbing success.
+[2025-03-31 15:43:32:0680] | Info     | Manager.cpp              -L1221: [Start] end success.
+[2025-03-31 15:43:37:0668] | Info     | Manager.cpp              -L3427: [HfrVmDataProcess] malloc 1 buf.. totalBuf[free:0 + use:0]. 
+[2025-03-31 15:43:37:0673] | Info     | Manager.cpp              -L3704: [AlgorithmCalThreadProc]  malloc 1 buf.. totalBuf[free:0 + use:0]. 
+[2025-03-31 15:43:49:0093] | Info     | Manager.cpp              -L1374: ---------------------Start call Mv3dLp.dll start--------------------
+[2025-03-31 15:43:49:0093] | Info     | Manager.cpp              -L1378: Build Time[240824_13:34:21], SDK version[1.3.0].
+[2025-03-31 15:43:49:0093] | Info     | Manager.cpp              -L1380: Mv3dLp.dll path [C:\Program Files (x86)\Common Files\Mv3dLpSDK\Runtime\Win64_x64\Mv3dLp.dll]
+[2025-03-31 15:43:49:0093] | Info     | Manager.cpp              -L1381: Current ExE path [D:\programs\VSCode\Qt\chuanYi\flangeMeasureTest\build\Debug\Debug\flangeMeasureTest.exe]
+[2025-03-31 15:43:49:0093] | Info     | Manager.cpp              -L1386: Config (C:\Program Files (x86)\Common Files\Mv3dLpSDK\Runtime\Win64_x64\Mv3dLpCfg.ini) exist .
+[2025-03-31 15:43:49:0093] | Info     | Manager.cpp              -L1393: DebugMode[0], nLogSize[100].
+[2025-03-31 15:43:49:0093] | Info     | Manager.cpp              -L1002: [Init] Begin.
+[2025-03-31 15:43:49:0096] | Info     | Manager.cpp              -L1040: [Init] end success.
+[2025-03-31 15:43:49:0421] | Info     | Manager.cpp              -L6693: [DisplayImage]  MVR init success.

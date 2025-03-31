@@ -1,7 +1,9 @@
 ﻿#include "HIK3DMVS.h"
 #include "system/basic.h"
+#include <QThread>
+#include <QMutex>
 
-CHIK3DMVS::CHIK3DMVS()
+CHIK3DMVS::CHIK3DMVS(WId p_hWndDisplay) : m_hWndDisplay(p_hWndDisplay)
 {
     m_nDevNum = 0;
 
@@ -108,19 +110,22 @@ void CHIK3DMVS::processThread()
         MV3D_LP_IMAGE_DATA stImageData;
         memset(&stImageData, 0, sizeof(MV3D_LP_IMAGE_DATA));
         nRet = MV3D_LP_GetImage(m_handle, &stImageData, 5);
-        if (MV3D_LP_OK == nRet)
+        if (nRet == MV3D_LP_OK)
         {
             try
             {
-                myInfo << cnStr("成功获取图像");
+                myInfo << cnStr("子线程ThreadID: ") << QThread::currentThreadId();
+                myInfo << cnStr("获取图像数据成功");
+                displayImage(&stImageData);
             }
             catch (...)
             {
-                myInfo << cnStr("显示图像失败");
+                myInfo << cnStr("获取图像数据出错！！！");
             }
         }
         else
         {
+            // myInfo << cnStr("获取图像数据失败");
             Sleep(1);
             continue;
         }
@@ -146,7 +151,7 @@ void CHIK3DMVS::startGrabImage()
     m_bStartJob = true;
 
     hProcessThread = CreateThread(NULL, 0, staticProcessThread, this, 0, &m_threadid);
-    if (NULL == hProcessThread)
+    if (hProcessThread == NULL)
     {
         myInfo << cnStr("创建处理线程失败");
     }
@@ -157,6 +162,8 @@ void CHIK3DMVS::startGrabImage()
         myInfo << cnStr("开始测量失败，错误代码: %1").arg(nRet);
         return;
     }
+
+    myInfo << cnStr("主线程ThreadID: ") << QThread::currentThreadId();
 }
 
 void CHIK3DMVS::stopGrabImage()
@@ -173,5 +180,35 @@ void CHIK3DMVS::stopGrabImage()
         myInfo << cnStr("停止采集失败，错误代码: %1").arg(MV3D_LP_StopMeasure(m_handle));
         m_bStartJob = false;
         return ;
+    }
+}
+
+void CHIK3DMVS::displayImage(MV3D_LP_IMAGE_DATA* p_imageData)
+{
+    myInfo << cnStr("显示图像ThreadID: ") << QThread::currentThreadId();
+    int nRet = MV3D_LP_OK;
+    void* hWnd = reinterpret_cast<void*>(m_hWndDisplay);
+    nRet = MV3D_LP_DisplayImage(p_imageData, hWnd, DisplayType_Auto, 0, 0);
+    if(nRet != MV3D_LP_OK)
+    {
+        myInfo << cnStr("保存图片失败，错误代码: %1").arg(nRet);
+        return;
+    }
+}
+
+void CHIK3DMVS::saveImage(MV3D_LP_IMAGE_DATA* p_imageData)
+{
+    myInfo << cnStr("保存图像ThreadID: ") << QThread::currentThreadId();
+    int nRet = MV3D_LP_OK;
+
+    QMutex mutex;
+    mutex.lock();
+    nRet = MV3D_LP_SaveImage(p_imageData, FileType_JPG, "");
+    mutex.unlock();
+
+    if(nRet != MV3D_LP_OK)
+    {
+        myInfo << cnStr("保存图片失败，错误代码: %1").arg(nRet);
+        return;
     }
 }

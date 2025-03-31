@@ -23,7 +23,10 @@ CMainWindow::CMainWindow(QWidget *parent) : QWidget(parent)
     m_hWnd = (HWND)this->winId();
     m_pCDZSTMark = new CDZSTMark(m_hWnd);
 
-    m_pCHIK3DMVS = new CHIK3DMVS();
+    m_pImageLabel = new QLabel;
+    m_pImageLabel->setAttribute(Qt::WA_NativeWindow, true);
+    m_pImageLabel->windowHandle()->create();
+    m_pCHIK3DMVS = new CHIK3DMVS(m_pImageLabel->winId());
 
     init();
 
@@ -56,7 +59,6 @@ void CMainWindow::init()
 {
     m_pMenuBar = new CMainWindowMenuBar(this);
 
-    m_pImageLabel = new QLabel;
     m_pImageLabel->setFixedSize(500, 500);
     m_pImageLabel->setStyleSheet(cStyleSheet);
 
