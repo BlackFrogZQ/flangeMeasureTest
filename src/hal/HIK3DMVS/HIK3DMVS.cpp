@@ -10,7 +10,7 @@ CHIK3DMVS::CHIK3DMVS(WId p_hWndDisplay) : m_hWndDisplay(p_hWndDisplay)
     m_bConnect = false;
     m_handle = NULL;
 
-    hProcessThread = NULL;
+    m_hProcessThread = NULL;
     m_bStartJob = false;
 
     init();
@@ -89,7 +89,38 @@ void CHIK3DMVS::openCamera()
 
 void CHIK3DMVS::closeCamera()
 {
+    int nRet = MV3D_LP_OK;
+    if(m_handle != NULL)
+    {
+        if(m_bStartJob == true)
+        {
+            m_bStartJob = false;
+            nRet = MV3D_LP_StopMeasure(m_handle);
+            if(nRet != MV3D_LP_OK)
+            {
+                myInfo << cnStr("停止测量失败，错误代码: %1").arg(nRet);
+                return;
+            }
 
+            if (m_hProcessThread != NULL)
+            {
+                WaitForSingleObject(m_hProcessThread, INFINITE);
+                CloseHandle(m_hProcessThread);
+                m_hProcessThread = NULL;
+            }
+        }
+
+        if(m_handle != NULL)
+        {
+            nRet = MV3D_LP_CloseDevice(&m_handle);
+            if(nRet != MV3D_LP_OK)
+            {
+                myInfo << cnStr("关闭相机失败，错误代码: %1").arg(nRet);
+                return;
+            }
+        }
+    }
+    MV3D_LP_Finalize();
 }
 
 DWORD WINAPI CHIK3DMVS::staticProcessThread(LPVOID lpParam)
@@ -140,18 +171,17 @@ void CHIK3DMVS::startGrabImage()
         return;
     }
 
-    if (hProcessThread != NULL)
+    if (m_hProcessThread != NULL)
     {
         m_bStartJob = false;
-        WaitForSingleObject(hProcessThread, INFINITE);
-        CloseHandle(hProcessThread);
-        hProcessThread = NULL;
+        WaitForSingleObject(m_hProcessThread, INFINITE);
+        CloseHandle(m_hProcessThread);
+        m_hProcessThread = NULL;
     }
-
     m_bStartJob = true;
 
-    hProcessThread = CreateThread(NULL, 0, staticProcessThread, this, 0, &m_threadid);
-    if (hProcessThread == NULL)
+    m_hProcessThread = CreateThread(NULL, 0, staticProcessThread, this, 0, &m_threadid);
+    if (m_hProcessThread == NULL)
     {
         myInfo << cnStr("创建处理线程失败");
     }
@@ -177,7 +207,7 @@ void CHIK3DMVS::stopGrabImage()
     m_bStartJob = false;
     if (MV3D_LP_StopMeasure(m_handle) != MV3D_LP_OK)
     {
-        myInfo << cnStr("停止采集失败，错误代码: %1").arg(MV3D_LP_StopMeasure(m_handle));
+        myInfo << cnStr("停止测量失败，错误代码: %1").arg(MV3D_LP_StopMeasure(m_handle));
         m_bStartJob = false;
         return ;
     }
@@ -185,7 +215,6 @@ void CHIK3DMVS::stopGrabImage()
 
 void CHIK3DMVS::displayImage(MV3D_LP_IMAGE_DATA* p_imageData)
 {
-    myInfo << cnStr("显示图像ThreadID: ") << QThread::currentThreadId();
     int nRet = MV3D_LP_OK;
     void* hWnd = reinterpret_cast<void*>(m_hWndDisplay);
     nRet = MV3D_LP_DisplayImage(p_imageData, hWnd, DisplayType_Auto, 0, 0);
@@ -194,21 +223,72 @@ void CHIK3DMVS::displayImage(MV3D_LP_IMAGE_DATA* p_imageData)
         myInfo << cnStr("保存图片失败，错误代码: %1").arg(nRet);
         return;
     }
+
+    m_mutex.lock();
+    {
+        memset(m_pcDataBuf, 0, p_imageData->nDataLen);
+        memcpy(&m_stImageInfo, p_imageData, sizeof(MV3D_LP_IMAGE_DATA));
+        if (p_imageData->pData != NULL)
+        {
+            memcpy(m_pcDataBuf, p_imageData->pData, p_imageData->nDataLen);
+            m_stImageInfo.pData = m_pcDataBuf;
+        }
+    }
+    m_mutex.unlock();
 }
 
-void CHIK3DMVS::saveImage(MV3D_LP_IMAGE_DATA* p_imageData)
+int CHIK3DMVS::saveImage(Mv3dLpFileType p_enFileType)
 {
-    myInfo << cnStr("保存图像ThreadID: ") << QThread::currentThreadId();
     int nRet = MV3D_LP_OK;
 
-    QMutex mutex;
-    mutex.lock();
-    nRet = MV3D_LP_SaveImage(p_imageData, FileType_JPG, "");
-    mutex.unlock();
+    m_mutex.lock();
+    nRet = MV3D_LP_SaveImage(&m_stImageInfo, p_enFileType, "");
+    m_mutex.unlock();
 
     if(nRet != MV3D_LP_OK)
     {
         myInfo << cnStr("保存图片失败，错误代码: %1").arg(nRet);
+        return nRet;
+    }
+}
+
+void CHIK3DMVS::saveImageTiff()
+{
+    int nRet = MV3D_LP_OK;
+    nRet = saveImage(FileType_TIFF);
+    if (MV3D_LP_OK != nRet)
+    {
+        myInfo << cnStr("保存图片失败，错误代码: %1").arg(nRet);
         return;
     }
+    myInfo << cnStr("保存图片成功");
+}
+
+void CHIK3DMVS::saveImageBMP()
+{
+    int nRet = MV3D_LP_OK;
+    nRet = saveImage(FileType_BMP);
+    if (MV3D_LP_OK != nRet)
+    {
+        myInfo << cnStr("保存图片失败，错误代码: %1").arg(nRet);
+        return;
+    }
+    myInfo << cnStr("保存图片成功");
+}
+
+void CHIK3DMVS::saveImageJPG()
+{
+    int nRet = MV3D_LP_OK;
+    nRet = saveImage(FileType_JPG);
+    if (MV3D_LP_OK != nRet)
+    {
+        myInfo << cnStr("保存图片失败，错误代码: %1").arg(nRet);
+        return;
+    }
+    myInfo << cnStr("保存图片成功");
+}
+
+void CHIK3DMVS::saveImageRAW()
+{
+
 }

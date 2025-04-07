@@ -110,14 +110,17 @@ void CControl::clickStopGrab()
 
 void CControl::clickSaveTIFF()
 {
+    m_pCHIK3DMVS->saveImageTiff();
 }
 
 void CControl::clickSaveBMP()
 {
+    m_pCHIK3DMVS->saveImageBMP();
 }
 
 void CControl::clickSaveJPG()
 {
+    m_pCHIK3DMVS->saveImageJPG();
 }
 
 void CControl::clickSavePLY()
@@ -134,4 +137,5 @@ void CControl::clickSaveOBJ()
 
 void CControl::clickSaveRAW()
 {
+    m_pCHIK3DMVS->saveImageRAW();
 }

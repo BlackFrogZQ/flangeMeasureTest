@@ -22,7 +22,11 @@ public:
     void stopGrabImage();
 
     void displayImage(MV3D_LP_IMAGE_DATA* p_imageData);
-    void saveImage(MV3D_LP_IMAGE_DATA* p_imageData);
+    int saveImage(Mv3dLpFileType p_enFileType);
+    void saveImageTiff();
+    void saveImageBMP();
+    void saveImageJPG();
+    void saveImageRAW();
 
 protected:
     void init();
@@ -34,9 +38,12 @@ private:
     bool m_bConnect;
     void* m_handle;
 
-    HANDLE hProcessThread;
     bool m_bStartJob;
+    HANDLE m_hProcessThread;
     DWORD m_threadid;
 
+    QMutex m_mutex;
     WId  m_hWndDisplay;
+    MV3D_LP_IMAGE_DATA m_stImageInfo;
+    unsigned char* m_pcDataBuf;
 };
