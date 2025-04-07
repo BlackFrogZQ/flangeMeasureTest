@@ -40,6 +40,7 @@ include_directories($ENV{QT_Dir}\\include\\QtSerialPort)
 include_directories($ENV{QT_Dir}\\include\\QtConcurrent)
 include_directories($ENV{QT_Dir}\\include\\QtMultimedia)
 include_directories($ENV{QT_Dir}\\include\\QtMultimediaWidgets)
+include_directories($ENV{QT_Dir}\\include\\QtAxcontainer)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
@@ -47,7 +48,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 add_definitions(-DNOMINMAX)
 message("Looking for Qt...")
-find_package(Qt5 COMPONENTS Core Gui Network SerialBus Widgets SerialPort Concurrent Multimedia MultimediaWidgets Qml REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui Network SerialBus Widgets SerialPort Concurrent Multimedia MultimediaWidgets AxContainer Qml REQUIRED)
 
 if(${Qt5_FOUND})
     message("Found Qt " ${Qt5_VERSION})
@@ -66,7 +67,8 @@ set(Qt5model
     Qt5::Gui
     Qt5::Core
     Qt5::SerialPort
-    Qt5::Concurrent)
+    Qt5::Concurrent
+    Qt5::AxContainer)
 
 set(isRelease TRUE)
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
@@ -78,11 +80,13 @@ file(GLOB HMHaShuLIBS "${PROJECT_SOURCE_DIR}/lib/HMHaShu/*.lib")
 file(GLOB HMHaShuDlls "${PROJECT_SOURCE_DIR}/lib/HMHaShu/*.dll")
 file(GLOB HIK3DMVSLIBS "${PROJECT_SOURCE_DIR}/lib/HIK3DMVS/*.lib")
 file(GLOB HIK3DMVSDlls "${PROJECT_SOURCE_DIR}/lib/HIK3DMVS/*.dll")
-# 所有非Qt通用dll库 不一定在统一目录 可直接追加目录
-set_property(GLOBAL APPEND PROPERTY LIBS ${HMHaShuLIBS} ${HIK3DMVSLIBS})
-# 所有非Qt通用dll库 不一定在统一目录 可直接追加目录
-set_property(GLOBAL APPEND PROPERTY libDlls ${HMHaShuDlls} ${HIK3DMVSDlls})
+file(GLOB VisionMasterSDKLIBS "${PROJECT_SOURCE_DIR}/lib/VisionMasterSDK/*.lib")
+file(GLOB VisionMasterSDKDlls "${PROJECT_SOURCE_DIR}/lib/VisionMasterSDK/*.dll")
+# 所有非Qt通用lib库 不一定在统一目录 可直接追加目录
+set_property(GLOBAL APPEND PROPERTY LIBS ${HMHaShuLIBS} ${HIK3DMVSLIBS} ${VisionMasterSDKLIBS})
 get_property(currentLibs GLOBAL PROPERTY LIBS)
+# 所有非Qt通用dll库 不一定在统一目录 可直接追加目录
+set_property(GLOBAL APPEND PROPERTY libDlls ${HMHaShuDlls} ${HIK3DMVSDlls} ${VisionMasterSDKDlls})
 
 macro(Macro_SetOutPath outPath)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${outPath})
@@ -96,6 +100,7 @@ include_directories(./)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/include/HMHaShu)
 include_directories(${PROJECT_SOURCE_DIR}/include/HIK3DMVS)
+include_directories(${PROJECT_SOURCE_DIR}/include/VisionMasterSDK)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/src/ui)
