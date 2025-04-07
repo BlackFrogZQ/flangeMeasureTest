@@ -3,6 +3,11 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <QWidget>
+#include <QAxWidget>
+#include "IVmSolution.h"
+
+using namespace VisionMasterSDK;
+using namespace VisionMasterSDK::VmSolution;
 
 class QLabel;
 class CDZSTMark;
@@ -34,6 +39,9 @@ private:
 	QTextBrowser* m_pOutMsg;
     QWidget* m_pControl;
     CMainWindowMenuBar *m_pMenuBar;
+
+    IVmSolution* m_pVmSol;
+    QAxWidget *activex;
 };
 
 CMainWindow* mainWindow();

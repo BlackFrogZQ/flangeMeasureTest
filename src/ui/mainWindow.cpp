@@ -28,6 +28,8 @@ CMainWindow::CMainWindow(QWidget *parent) : QWidget(parent)
     m_pImageLabel->windowHandle()->create();
     m_pCHIK3DMVS = new CHIK3DMVS(m_pImageLabel->winId());
 
+    m_pVmSol = CreateSolutionInstance();
+
     init();
 
     myInfo << cnStr("程序开始");
@@ -35,6 +37,7 @@ CMainWindow::CMainWindow(QWidget *parent) : QWidget(parent)
 
 CMainWindow::~CMainWindow()
 {
+    DisposeResource();
     delPtr(m_pCDZSTMark);
 }
 
@@ -72,6 +75,10 @@ void CMainWindow::init()
     pCameraLayout->setSpacing(2);
     pCameraWidget->setLayout(pCameraLayout);
 
+    QString selectedCLSID = "{0611E76E-3E97-42C7-8D2D-A8A42E928A7A}";
+    activex = new QAxWidget(selectedCLSID, this);
+    activex->dynamicCall("GetObjectPointer()");
+
     // 输入输出窗口
     m_pOutMsg = new CTextBrowser(this, this);
     m_pOutMsg->setStyleSheet(cStyleSheet);
@@ -81,6 +88,7 @@ void CMainWindow::init()
     QVBoxLayout *pLayout = new QVBoxLayout();
     pLayout->addWidget(m_pMenuBar);
     pLayout->addWidget(pCameraWidget);
+    pLayout->addWidget(activex);
     pLayout->addWidget(m_pOutMsg);
     pLayout->setMargin(0);
     pLayout->setSpacing(2);
