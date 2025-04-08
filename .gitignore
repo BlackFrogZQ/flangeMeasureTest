@@ -1,5 +1,4 @@
 .vscode/*
 build/*
-log/*
-lib/HMHaShu/*
-UDM.bin
+# 0.flangeMeasureTest_Log/*
+lib/*
