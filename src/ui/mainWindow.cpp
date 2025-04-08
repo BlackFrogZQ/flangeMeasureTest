@@ -4,7 +4,6 @@
 #include "controlWindow/controlWindow.h"
 #include "logTextBrowser/textBrowser.h"
 #include "hal/DZSTMark/DZSTMark.h"
-#include "hal/HIK3DMVS/HIK3DMVS.h"
 #include "menuBar/menuBar.h"
 #include <QLabel>
 #include <QTextBrowser>
@@ -25,8 +24,6 @@ CMainWindow::CMainWindow(QWidget *parent) : QWidget(parent)
 
     m_pImageLabel = new QLabel;
     m_pImageLabel->setAttribute(Qt::WA_NativeWindow, true);
-    m_pImageLabel->windowHandle()->create();
-    m_pCHIK3DMVS = new CHIK3DMVS(m_pImageLabel->winId());
 
     m_pVmSol = CreateSolutionInstance();
 
@@ -65,7 +62,7 @@ void CMainWindow::init()
     m_pImageLabel->setFixedSize(500, 500);
     m_pImageLabel->setStyleSheet(cStyleSheet);
 
-    m_pControl = new CControl(this, m_pCHIK3DMVS);
+    m_pControl = new CControl(this);
 
     QWidget *pCameraWidget = new QWidget;
     QHBoxLayout *pCameraLayout = new QHBoxLayout;

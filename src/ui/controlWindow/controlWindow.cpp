@@ -1,6 +1,5 @@
 ﻿#include "controlWindow.h"
 #include "system/basic.h"
-#include "hal/HIK3DMVS/HIK3DMVS.h"
 #include "hal/DZSTMark/DZSTMark.h"
 #include "hal/DZSTMark/DZSTMarkDef.h"
 #include <QPushButton>
@@ -10,7 +9,7 @@
 
 using namespace TIGER_DZSTMarkDef;
 
-CControl::CControl(QWidget *parent, CHIK3DMVS *p_CHIK3DMVS) : QWidget(parent), m_pCHIK3DMVS(p_CHIK3DMVS)
+CControl::CControl(QWidget *parent) : QWidget(parent)
 {
     initLayout();
 }
@@ -83,44 +82,36 @@ void CControl::initLayout()
 
 void CControl::clickEnumDevices()
 {
-    m_pCHIK3DMVS->enumDevices();
 }
 
 void CControl::clickConnectCamera()
 {
-    m_pCHIK3DMVS->openCamera();
 }
 
 void CControl::clickDisconnectCamera()
 {
-    m_pCHIK3DMVS->closeCamera();
 }
 
 
 void CControl::clickStartGrab()
 {
-    m_pCHIK3DMVS->startGrabImage();
 }
 
 void CControl::clickStopGrab()
 {
-    m_pCHIK3DMVS->stopGrabImage();
 }
 
 
 void CControl::clickSaveTIFF()
 {
-    m_pCHIK3DMVS->saveImageTiff();
 }
 
 void CControl::clickSaveBMP()
 {
-    m_pCHIK3DMVS->saveImageBMP();
 }
 
 void CControl::clickSaveJPG()
 {
-    m_pCHIK3DMVS->saveImageJPG();
 }
 
 void CControl::clickSavePLY()
@@ -137,5 +128,4 @@ void CControl::clickSaveOBJ()
 
 void CControl::clickSaveRAW()
 {
-    m_pCHIK3DMVS->saveImageRAW();
 }

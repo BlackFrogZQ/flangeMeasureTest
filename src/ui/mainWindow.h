@@ -11,7 +11,6 @@ using namespace VisionMasterSDK::VmSolution;
 
 class QLabel;
 class CDZSTMark;
-class CHIK3DMVS;
 class QTextBrowser;
 class CMainWindowMenuBar;
 const QString cStyleSheet = "border:1px groove gray;\nborder-radius:10px;\npadding:2px 3px;\nbackground:transparent;\nbackground-color: rgb(255, 255, 255,150);";
@@ -32,8 +31,6 @@ protected:
 private:
     HWND m_hWnd;
     CDZSTMark *m_pCDZSTMark;
-
-    CHIK3DMVS *m_pCHIK3DMVS;
 
     QLabel *m_pImageLabel;
 	QTextBrowser* m_pOutMsg;

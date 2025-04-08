@@ -2,14 +2,13 @@
 #include <QWidget>
 
 class CDZSTMark;
-class CHIK3DMVS;
 class QPushButton;
 
 class CControl: public QWidget
 {
     Q_OBJECT
 public:
-    CControl(QWidget *parent = nullptr, CHIK3DMVS *p_CHIK3DMVS = nullptr);
+    CControl(QWidget *parent = nullptr);
     ~CControl();
 
 protected:
@@ -33,7 +32,6 @@ protected slots:
 
 private:
     CDZSTMark *m_pCDZSTMark;
-    CHIK3DMVS *m_pCHIK3DMVS;
 
     QPushButton *m_pFindDevices;
     QPushButton *m_pConnectCamera;
