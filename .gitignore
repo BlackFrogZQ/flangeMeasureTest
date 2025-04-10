@@ -1,4 +1,5 @@
 .vscode/*
 build/*
-# 0.flangeMeasureTest_Log/*
+flangeMeasureTest_Log/*
 lib/*
+ImageTemp/*

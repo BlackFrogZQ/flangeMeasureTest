@@ -1,15 +1,21 @@
 ﻿#include "controlWindow.h"
 #include "system/basic.h"
+#include "IVmSolution.h"
+#include "VMException.h"
+#include "./mainWindow.h"
 #include "hal/DZSTMark/DZSTMark.h"
 #include "hal/DZSTMark/DZSTMarkDef.h"
 #include <QPushButton>
 #include <QLabel>
+#include <QLineEdit>
 #include <QGroupBox>
 #include <QVBoxLayout>
+#include <QFileDialog>
 
-using namespace TIGER_DZSTMarkDef;
+using namespace VisionMasterSDK;
+using namespace VisionMasterSDK::VmSolution;
 
-CControl::CControl(QWidget *parent) : QWidget(parent)
+CControl::CControl(QWidget *parent, IVmSolution* pVmSol) : QWidget(parent), m_pVmSol(pVmSol)
 {
     initLayout();
 }
@@ -20,112 +26,122 @@ CControl::~CControl()
 
 void CControl::initLayout()
 {
-    QGroupBox *pCameraConnect = new QGroupBox(cnStr("相机连接"));
-    m_pFindDevices = new QPushButton(cnStr("发现设备"));
-    m_pConnectCamera = new QPushButton(cnStr("连接相机"));
-    m_pDisconnectCamera = new QPushButton(cnStr("断开相机"));
+    QGroupBox *pCameraConnect = new QGroupBox(cnStr("方案控制接口"));
+    QLabel *labelSchemePath = new QLabel(cnStr("方案路径："), this);
+    QLabel *labelSchemePassword = new QLabel(cnStr("方案密码："), this);
+    m_LineEditPath = new QLineEdit(this);
+    m_LineEditPassword = new QLineEdit(this);
+    m_pSolutionPath = new QPushButton(cnStr("选择方案路径"));
+    m_pLoadSolution = new QPushButton(cnStr("加载方案"));
     QGridLayout *pCameraConnectLayout = new QGridLayout;
-    pCameraConnectLayout->addWidget(m_pFindDevices, 0, 0, 1, 2);
-    pCameraConnectLayout->addWidget(m_pConnectCamera, 1, 0, 1, 1);
-    pCameraConnectLayout->addWidget(m_pDisconnectCamera, 1, 1, 1, 1);
+    pCameraConnectLayout->addWidget(labelSchemePath, 0, 0, 1, 1);
+    pCameraConnectLayout->addWidget(m_LineEditPath, 0, 1, 1, 1);
+    pCameraConnectLayout->addWidget(m_pSolutionPath, 0, 2, 1, 1);
+    pCameraConnectLayout->addWidget(labelSchemePassword, 1, 0, 1, 1);
+    pCameraConnectLayout->addWidget(m_LineEditPassword, 1, 1, 1, 1);
+    pCameraConnectLayout->addWidget(m_pLoadSolution, 1, 2, 1, 1);
     pCameraConnect->setLayout(pCameraConnectLayout);
 
-    QGroupBox *pImageGrab = new QGroupBox(cnStr("图像采集"));
-    m_pImageGrab = new QPushButton(cnStr("采集图像"));
-    m_pImageStop = new QPushButton(cnStr("停止采集"));
-    QGridLayout *pImageGrabLayout = new QGridLayout;
-    pImageGrabLayout->addWidget(m_pImageGrab, 0, 0, 1, 1);
-    pImageGrabLayout->addWidget(m_pImageStop, 0, 1, 1, 1);
-    pImageGrab->setLayout(pImageGrabLayout);
+    QGroupBox *pObtainResults = new QGroupBox(cnStr("获取结果操作接口"));
+    m_pImageResults = new QPushButton(cnStr("获取图像源结果"));
+    m_pCallBackImageResults = new QPushButton(cnStr("回调获取图像源结果"));
+    m_pProcessResults = new QPushButton(cnStr("获取流程结果"));
+    QGridLayout *pObtainResultsLayout = new QGridLayout;
+    pObtainResultsLayout->addWidget(m_pImageResults, 0, 0, 1, 1);
+    pObtainResultsLayout->addWidget(m_pCallBackImageResults, 0, 1, 1, 1);
+    pObtainResultsLayout->addWidget(m_pProcessResults, 0, 2, 1, 1);
+    pObtainResults->setLayout(pObtainResultsLayout);
 
-    QGroupBox *pImageSave = new QGroupBox(cnStr("图像保存"));
-    m_pSaveTIFF = new QPushButton(cnStr("保存TIFF"));
-    m_pSaveBMP = new QPushButton(cnStr("保存BMP"));
-    m_pSaveJPG = new QPushButton(cnStr("保存JPG"));
-    m_pSavePLY = new QPushButton(cnStr("保存PLY"));
-    m_pSaveCSV = new QPushButton(cnStr("保存CSV"));
-    m_pSaveOBJ = new QPushButton(cnStr("保存OBJ"));
-    m_pSaveRAW = new QPushButton(cnStr("保存RAW"));
-    QGridLayout *pImageSaveLayout = new QGridLayout;
-    pImageSaveLayout->addWidget(m_pSaveTIFF, 0, 0, 1, 1);
-    pImageSaveLayout->addWidget(m_pSaveBMP, 0, 1, 1, 1);
-    pImageSaveLayout->addWidget(m_pSaveJPG, 0, 2, 1, 1);
-    pImageSaveLayout->addWidget(m_pSavePLY, 1, 0, 1, 1);
-    pImageSaveLayout->addWidget(m_pSaveCSV, 1, 1, 1, 1);
-    pImageSaveLayout->addWidget(m_pSaveOBJ, 1, 2, 1, 1);
-    pImageSaveLayout->addWidget(m_pSaveRAW, 2, 0, 1, 3);
-    pImageSave->setLayout(pImageSaveLayout);
+    QGroupBox *pRender = new QGroupBox(cnStr("渲染"));
+    m_pRenderBind = new QPushButton(cnStr("渲染绑定"));
+    m_pExecuteOnce = new QPushButton(cnStr("执行一次"));
+    m_pRenderUnBind = new QPushButton(cnStr("渲染解绑"));
+    QGridLayout *pRenderLayout = new QGridLayout;
+    pRenderLayout->addWidget(m_pRenderBind, 0, 0, 1, 1);
+    pRenderLayout->addWidget(m_pExecuteOnce, 0, 1, 1, 1);
+    pRenderLayout->addWidget(m_pRenderUnBind, 0, 2, 1, 1);
+    pRender->setLayout(pRenderLayout);
 
     QVBoxLayout *pButtonLayout = new QVBoxLayout;
     pButtonLayout->addWidget(pCameraConnect);
-    pButtonLayout->addWidget(pImageGrab);
-    pButtonLayout->addWidget(pImageSave);
+    pButtonLayout->addWidget(pObtainResults);
+    pButtonLayout->addWidget(pRender);
     pButtonLayout->setMargin(0);
     pButtonLayout->setSpacing(2);
     this->setLayout(pButtonLayout);
 
-    connect(m_pFindDevices, &QPushButton::clicked, this, &CControl::clickEnumDevices);
-    connect(m_pConnectCamera, &QPushButton::clicked, this, &CControl::clickConnectCamera);
-    connect(m_pDisconnectCamera, &QPushButton::clicked, this, &CControl::clickDisconnectCamera);
-
-    connect(m_pImageGrab, &QPushButton::clicked, this, &CControl::clickStartGrab);
-    connect(m_pImageStop, &QPushButton::clicked, this, &CControl::clickStopGrab);
-
-    connect(m_pSaveTIFF, &QPushButton::clicked, this, &CControl::clickSaveTIFF);
-    connect(m_pSaveBMP, &QPushButton::clicked, this, &CControl::clickSaveBMP);
-    connect(m_pSaveJPG, &QPushButton::clicked, this, &CControl::clickSaveJPG);
-    connect(m_pSavePLY, &QPushButton::clicked, this, &CControl::clickSavePLY);
-    connect(m_pSaveCSV, &QPushButton::clicked, this, &CControl::clickSaveCSV);
-    connect(m_pSaveOBJ, &QPushButton::clicked, this, &CControl::clickSaveOBJ);
-    connect(m_pSaveRAW, &QPushButton::clicked, this, &CControl::clickSaveRAW);
+    connect(m_pSolutionPath, &QPushButton::clicked, this, &CControl::clickSolutionPath);
+    connect(m_pLoadSolution, &QPushButton::clicked, this, &CControl::clickLoadSolution);
+    connect(m_pImageResults, &QPushButton::clicked, this, &CControl::clickImageResults);
+    connect(m_pCallBackImageResults, &QPushButton::clicked, this, &CControl::clickCallBackImageResults);
+    connect(m_pProcessResults, &QPushButton::clicked, this, &CControl::clickProcessResults);
+    connect(m_pRenderBind, &QPushButton::clicked, this, &CControl::clickRenderBind);
+    connect(m_pExecuteOnce, &QPushButton::clicked, this, &CControl::clickExecuteOnce);
+    connect(m_pRenderUnBind, &QPushButton::clicked, this, &CControl::clickRenderUnBind);
 }
 
-void CControl::clickEnumDevices()
+void CControl::clickSolutionPath()
+{
+    QString strTemp = QStringLiteral("Choose solution path");
+    QString strFileName = QFileDialog::getOpenFileName(this, strTemp, "", "SOL(*.sol)");
+    if (!strFileName.isEmpty())
+    {
+        m_LineEditPath->setText(strFileName);
+    }
+}
+
+void CControl::clickLoadSolution()
+{
+    QString strSolPath = m_LineEditPath->text();
+    QString strPassword = m_LineEditPassword->text();
+    QString strReMsg = "";
+
+    if (strSolPath.isEmpty()) strSolPath = "";
+    if (strPassword.isEmpty()) strPassword = "";
+
+    mainWindow()->loadSolution(strSolPath, strPassword);
+
+    // try
+    // {
+    //     m_pVmSol = LoadSolution(strSolPath.toStdString().c_str(), strPassword.toStdString().c_str());
+    //     if (NULL == m_pVmSol)
+    //     {
+    //         return;
+    //     }
+    // }
+    // catch (CVmException e)
+    // {
+    //     strReMsg = QString::number(e.GetErrorCode(), 16);
+    //     strReMsg = "0x" + strReMsg + " == LoadSolution()";
+    //     myInfo << strReMsg;
+    //     return;
+    // }
+
+    // strReMsg = "LoadSolution success.";
+    // myInfo << strReMsg;
+}
+
+void CControl::clickImageResults()
 {
 }
 
-void CControl::clickConnectCamera()
+void CControl::clickCallBackImageResults()
 {
 }
 
-void CControl::clickDisconnectCamera()
+void CControl::clickProcessResults()
 {
 }
 
+void CControl::clickRenderBind()
+{
+    mainWindow()->clickRenderBind();
+}
 
-void CControl::clickStartGrab()
+void CControl::clickExecuteOnce()
 {
 }
 
-void CControl::clickStopGrab()
-{
-}
-
-
-void CControl::clickSaveTIFF()
-{
-}
-
-void CControl::clickSaveBMP()
-{
-}
-
-void CControl::clickSaveJPG()
-{
-}
-
-void CControl::clickSavePLY()
-{
-}
-
-void CControl::clickSaveCSV()
-{
-}
-
-void CControl::clickSaveOBJ()
-{
-}
-
-void CControl::clickSaveRAW()
+void CControl::clickRenderUnBind()
 {
 }

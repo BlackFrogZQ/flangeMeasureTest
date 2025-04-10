@@ -32,7 +32,7 @@ void CLogDef::writeLog(QString p_logName, QString p_msg)
 QString CLogDef::getLogName(const CLogType &p_type)
 {
     auto dateTime = QDateTime::currentDateTime();
-    const QString cDir = getAppDir() + QString("/0.%2_Log/%1").arg(dateTime.toString("yyyy.MM")).arg(_ProjectName);
+    const QString cDir = getAppDir() + QString("/%2_Log/%1").arg(dateTime.toString("yyyy.MM")).arg(_ProjectName);
     TIGER_FlieTool::createDir(cDir);
     switch (p_type)
     {
@@ -49,7 +49,7 @@ QString CLogDef::getLogName(const CLogType &p_type)
 
 QList<CLogMonthInfo> CLogDef::getAllLog()
 {
-    const QString cDir = getAppDir() + QString("/0.%1_Log").arg(_ProjectName);
+    const QString cDir = getAppDir() + QString("/%1_Log").arg(_ProjectName);
 
     auto getMonthNames = [](QString p_dir)
     {

@@ -1,50 +1,51 @@
 ﻿#pragma once
 #include <QWidget>
 
-class CDZSTMark;
+class QLineEdit;
 class QPushButton;
+namespace VisionMasterSDK
+{
+    namespace VmSolution
+    {
+        class IVmSolution;
+    }
+}
 
 class CControl: public QWidget
 {
     Q_OBJECT
 public:
-    CControl(QWidget *parent = nullptr);
+    CControl(QWidget *parent = nullptr, VisionMasterSDK::VmSolution::IVmSolution* pVmSol = nullptr);
     ~CControl();
 
 protected:
 	void initLayout();
 
 protected slots:
-    void clickEnumDevices();
-    void clickConnectCamera();
-    void clickDisconnectCamera();
+    void clickSolutionPath();
+    void clickLoadSolution();
 
-    void clickStartGrab();
-    void clickStopGrab();
+    void clickImageResults();
+    void clickCallBackImageResults();
+    void clickProcessResults();
 
-    void clickSaveTIFF();
-    void clickSaveBMP();
-    void clickSaveJPG();
-    void clickSavePLY();
-    void clickSaveCSV();
-    void clickSaveOBJ();
-    void clickSaveRAW();
+    void clickRenderBind();
+    void clickExecuteOnce();
+    void clickRenderUnBind();
 
 private:
-    CDZSTMark *m_pCDZSTMark;
+    QLineEdit *m_LineEditPath;
+    QLineEdit *m_LineEditPassword;
+    QPushButton *m_pSolutionPath;
+    QPushButton *m_pLoadSolution;
 
-    QPushButton *m_pFindDevices;
-    QPushButton *m_pConnectCamera;
-    QPushButton *m_pDisconnectCamera;
+    QPushButton *m_pImageResults;
+    QPushButton *m_pCallBackImageResults;
+    QPushButton *m_pProcessResults;
 
-    QPushButton *m_pImageGrab;
-    QPushButton *m_pImageStop;
-
-    QPushButton *m_pSaveTIFF;
-    QPushButton *m_pSaveBMP;
-    QPushButton *m_pSaveJPG;
-    QPushButton *m_pSavePLY;
-    QPushButton *m_pSaveCSV;
-    QPushButton *m_pSaveOBJ;
-    QPushButton *m_pSaveRAW;
+    QPushButton *m_pRenderBind;
+    QPushButton *m_pExecuteOnce;
+    QPushButton *m_pRenderUnBind;
+    
+    VisionMasterSDK::VmSolution::IVmSolution* m_pVmSol;
 };

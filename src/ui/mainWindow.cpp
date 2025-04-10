@@ -1,8 +1,6 @@
 ﻿#include "mainWindow.h"
 #include "mainWindowDef.h"
 #include "basic.h"
-#include "IVmSolution.h"
-#include "VMException.h"
 #include "system/basic.h"
 #include "menuBar/menuBar.h"
 #include "controlWindow/controlWindow.h"
@@ -10,9 +8,20 @@
 #include <QTextBrowser>
 #include <QVBoxLayout>
 #include <QAxWidget>
+#include <QMessageBox>
 
-using namespace VisionMasterSDK;
-using namespace VisionMasterSDK::VmSolution;
+int __stdcall CallBackModuRes(OUT OutputPlatformInfo * const pstOutputPlatformInfo, IN void * const pUser)
+{
+	CMainWindow * pCtrlThis = (CMainWindow *)pUser;
+	int nRet = IMVS_EC_UNKNOWN;
+    nRet = pCtrlThis->CallBackModuResFunc(pstOutputPlatformInfo, true);
+    if (IMVS_EC_OK != nRet)
+    {
+        return nRet;
+    }
+	return IMVS_EC_OK;
+}
+
 
 CMainWindow* g_pMainWindow = nullptr;
 CMainWindow* mainWindow()
@@ -24,11 +33,35 @@ CMainWindow::CMainWindow(QWidget *parent) : QWidget(parent)
 {
     g_pMainWindow = this;
 
-    m_pVmSol = CreateSolutionInstance();
+    try
+    {
+        m_pVmSol = CreateSolutionInstance();
+		m_pVmSol->RegisterCallBack(CallBackModuRes, this);
+		m_pVmSol->DisableModulesCallback();
+
+        m_pSolution = new QAxWidget(VmProcedureControlWinform, this);
+        m_pSolution->dynamicCall("GetObjectPointer()");
+        m_pSolution->setFixedSize(600, 600);
+        m_pRender = new QAxWidget(VmRenderControlWinform, this);
+        m_pRender->dynamicCall("GetObjectPointer()");
+        m_pRender->setFixedSize(600, 600);
+    }
+    catch(CVmException e)
+    {
+        QString strReMsg = QString::number(e.GetErrorCode(), 16);
+        strReMsg = "0x" + strReMsg + " == CreateSolutionInstance()";
+        myInfo << strReMsg;
+    }
+    catch(...)
+    {
+        QString strReMsg = "Interface Exception!";
+        myInfo << strReMsg;
+    }
 
     init();
 
-    myInfo << cnStr("程序开始");
+    connect(m_pSolution, SIGNAL(exception(int, QString, QString, QString)), this, SLOT(slotsException(int, QString, QString, QString)));
+    connect(m_pRender, SIGNAL(exception(int, QString, QString, QString)), this, SLOT(slotsException(int, QString, QString, QString)));
 }
 
 CMainWindow::~CMainWindow()
@@ -46,24 +79,182 @@ void CMainWindow::printMsg(QString p_msg)
 void CMainWindow::init()
 {
     m_pMenuBar = new CMainWindowMenuBar(this);
-    m_pControl = new CControl(this);
 
-    QString selectedCLSID = "{4919FA4C-F224-4C1E-917C-89B7F37AAE90}";
-    m_pActivex = new QAxWidget(selectedCLSID, this);
-    m_pActivex->dynamicCall("GetObjectPointer()");
-
-    // 输入输出窗口
+    QWidget *pControlWidget = new QWidget;
+    QVBoxLayout *pControlLayout = new QVBoxLayout;
+    m_pControl = new CControl(this, m_pVmSol);
     m_pOutMsg = new CTextBrowser(this, this);
     m_pOutMsg->setStyleSheet(cStyleSheet);
     m_pOutMsg->document()->setMaximumBlockCount(300);
     m_pOutMsg->setFixedHeight(100);
+    pControlLayout->addWidget(m_pControl);
+    pControlLayout->addWidget(m_pOutMsg);
+    pControlWidget->setLayout(pControlLayout);
+
+    QWidget *pMainWidget = new QWidget;
+    QHBoxLayout *pMainLayout = new QHBoxLayout();
+    pMainLayout->addWidget(pControlWidget);
+    pMainLayout->addWidget(m_pSolution);
+    pMainLayout->addWidget(m_pRender);
+    pMainWidget->setLayout(pMainLayout);
 
     QVBoxLayout *pLayout = new QVBoxLayout();
     pLayout->addWidget(m_pMenuBar);
-    pLayout->addWidget(m_pControl);
-    pLayout->addWidget(m_pActivex);
-    pLayout->addWidget(m_pOutMsg);
+    pLayout->addWidget(pMainWidget);
     pLayout->setMargin(0);
     pLayout->setSpacing(2);
     this->setLayout(pLayout);
+}
+
+void CMainWindow::slotsException(int code, QString source, QString desc, QString help)
+{
+    QString errMsg = QString("Error code: %1, Source: %2, Description: %3, Help: %4").arg(code).arg(source).arg(desc).arg(help);
+    myInfo << errMsg;
+}
+
+int CMainWindow::CallBackModuResFunc(IN OutputPlatformInfo * const pstOutputPlatformInfo, bool bTime)
+{
+	if (IMVS_NULL == pstOutputPlatformInfo)
+	{
+		return IMVS_EC_INVALID_HANDLE;
+	}
+	if (IMVS_NULL == (pstOutputPlatformInfo->pData))
+	{
+		return IMVS_EC_INVALID_HANDLE;
+	}
+
+	QString strReMsg = "";
+	if (IMVS_ENUM_CTRLC_OUTPUT_PLATFORM_INFO_MODULE_RESULT == pstOutputPlatformInfo->nInfoType)
+	{
+		IMVS_PF_MODULE_RESULT_INFO_LIST * pstPFModuResInfoList = (IMVS_PF_MODULE_RESULT_INFO_LIST *)pstOutputPlatformInfo->pData;
+
+	}
+	else if (IMVS_ENUM_CTRLC_OUTPUT_PLATFORM_INFO_WORK_STATE == pstOutputPlatformInfo->nInfoType)
+	{
+		IMVS_PF_MODULE_WORK_STAUS * pstPFWorkStatus = (IMVS_PF_MODULE_WORK_STAUS *)pstOutputPlatformInfo->pData;
+
+		float a = pstPFWorkStatus->fProcessTime;
+
+		int m_nWorkStatus = pstPFWorkStatus->nWorkStatus;
+
+		if (m_nWorkStatus == 0)
+		{
+			QString strReMsg = "";
+			try
+			{
+				if (NULL == pModuleImageSourceTool)
+				{ 
+					m_bGetCallbackFlag = true;
+					return IMVS_EC_PARAM;
+				}
+				ImageSourceResults * pModuleImageResult = pModuleImageSourceTool->GetResult();
+				if (NULL != pModuleImageResult)
+				{
+					mshowImageGloble = { 0 };
+					mshowImageGloble = pModuleImageResult->GetImageData();
+				}
+
+				if (NULL == pModuleCircleFindTool)
+				{ 
+					m_bGetCallbackFlag = true;
+					return IMVS_EC_PARAM;
+				}
+				// CircleFindResults * pModuleCircleFindResult = pModuleCircleFindTool->GetResult();
+				// if (NULL != pModuleCircleFindResult)
+				// {
+				// 	CircleEx stCir = { 0 };
+				// 	stCir.CenterX = pModuleCircleFindResult->GetCircleCenter().fX;
+				// 	stCir.CenterY = pModuleCircleFindResult->GetCircleCenter().fY;
+				// 	stCir.MajorRadius = pModuleCircleFindResult->GetCircleRadius();
+				// 	stCir.MinorRadius = pModuleCircleFindResult->GetCircleRadius();
+
+				// 	int nArgb = 0;
+				// 	nArgb += 100 << 16;
+				// 	nArgb += 200 << 8;
+				// 	nArgb += 150;
+
+				// 	stCir.Color = nArgb;
+				// 	stCir.FillColor = nArgb;
+				// 	stCir.Opacity = 1;
+				// 	stCir.StrokeThickness = 1;
+
+				// 	stCirGloble = stCir;
+				// }
+				m_bGetCallbackFlag = true;
+			}
+			catch (CVmException e)
+			{
+				m_bGetCallbackFlag = true;
+                strReMsg = QString("0x%1 == CallBackModuResFunc()").arg(e.GetErrorCode(), 0, 16);
+				myInfo << strReMsg;
+			}
+		}
+	}
+	return IMVS_EC_OK;
+}
+
+void CMainWindow::loadSolution(QString strSolPath, QString strPassword)
+{
+	QString strReMsg = "";
+	try
+	{
+		m_pVmSol = LoadSolution(strSolPath.toStdString().c_str(), strPassword.toStdString().c_str());
+		if (NULL == m_pVmSol)
+		{
+			strReMsg = "LoadSolutionFromFile fail.";
+			myInfo << strReMsg;
+			return;
+		}
+		m_pVmPrc = (IVmProcedure *)(*m_pVmSol)["calibration"];
+		if (NULL == m_pVmPrc)
+		{
+			QMessageBox::warning(this, QStringLiteral("Warning"), QStringLiteral("Procedure name doesn't exist!"), QMessageBox::Ok);
+			return;
+		}
+		pModuleImageSourceTool = (ImageSourceModuleTool *)(*m_pVmSol)["calibration.Image Source1"];
+		if (NULL == pModuleImageSourceTool) return;
+		// pModuleCircleFindTool = (IMVSCircleFindModuTool *)(*m_pVmSol)["流程1.圆查找1.圆结果"];
+		// if (NULL == pModuleCircleFindTool) return;
+	}
+	catch (CVmException e)
+	{
+        QString strReMsg = QString("0x%1 == LoadSolutionFromFile()").arg(e.GetErrorCode(), 0, 16);
+		myInfo << strReMsg;
+		return;
+	}
+
+    strReMsg = "LoadSolutionFromFile success.";
+    myInfo << strReMsg;
+}
+
+void CMainWindow::clickRenderBind()
+{
+	QString strReMsg = "";
+	QString strResult = "";
+
+	if (NULL == m_pVmSol)
+	{
+		return;
+	}
+	try
+	{
+		m_bRenderFlag = true;
+
+		if (NULL == pModuleImageSourceTool) return;
+		ImageSourceResults* pResult = pModuleImageSourceTool->GetResult();
+		if (NULL == pResult) return;
+
+		qlonglong pData = (qlonglong)&(pResult->GetImageData());
+		m_pRender->dynamicCall("SetImageSourceData(qlonglong)", pData);
+	}
+	catch (CVmException e)
+	{
+		QString strReMsg = QString("0x%1 == GetResult()").arg(e.GetErrorCode(), 0, 16);
+		myInfo << strReMsg;
+	}
+    catch (...)
+    {
+        QString strReMsg = "Interface Exception!";
+        myInfo << strReMsg;
+    }
 }
