@@ -159,27 +159,27 @@ int CMainWindow::CallBackModuResFunc(IN OutputPlatformInfo * const pstOutputPlat
 					m_bGetCallbackFlag = true;
 					return IMVS_EC_PARAM;
 				}
-				// CircleFindResults * pModuleCircleFindResult = pModuleCircleFindTool->GetResult();
-				// if (NULL != pModuleCircleFindResult)
-				// {
-				// 	CircleEx stCir = { 0 };
-				// 	stCir.CenterX = pModuleCircleFindResult->GetCircleCenter().fX;
-				// 	stCir.CenterY = pModuleCircleFindResult->GetCircleCenter().fY;
-				// 	stCir.MajorRadius = pModuleCircleFindResult->GetCircleRadius();
-				// 	stCir.MinorRadius = pModuleCircleFindResult->GetCircleRadius();
+				CircleFindResults * pModuleCircleFindResult = pModuleCircleFindTool->GetResult();
+				if (NULL != pModuleCircleFindResult)
+				{
+					CircleEx stCir = { 0 };
+					stCir.CenterX = pModuleCircleFindResult->GetCircleCenter().fX;
+					stCir.CenterY = pModuleCircleFindResult->GetCircleCenter().fY;
+					stCir.MajorRadius = pModuleCircleFindResult->GetCircleRadius();
+					stCir.MinorRadius = pModuleCircleFindResult->GetCircleRadius();
 
-				// 	int nArgb = 0;
-				// 	nArgb += 100 << 16;
-				// 	nArgb += 200 << 8;
-				// 	nArgb += 150;
+					int nArgb = 0;
+					nArgb += 100 << 16;
+					nArgb += 200 << 8;
+					nArgb += 150;
 
-				// 	stCir.Color = nArgb;
-				// 	stCir.FillColor = nArgb;
-				// 	stCir.Opacity = 1;
-				// 	stCir.StrokeThickness = 1;
+					stCir.Color = nArgb;
+					stCir.FillColor = nArgb;
+					stCir.Opacity = 1;
+					stCir.StrokeThickness = 1;
 
-				// 	stCirGloble = stCir;
-				// }
+					stCirGloble = stCir;
+				}
 				m_bGetCallbackFlag = true;
 			}
 			catch (CVmException e)
@@ -213,8 +213,8 @@ void CMainWindow::loadSolution(QString strSolPath, QString strPassword)
 		}
 		pModuleImageSourceTool = (ImageSourceModuleTool *)(*m_pVmSol)["calibration.Image Source1"];
 		if (NULL == pModuleImageSourceTool) return;
-		// pModuleCircleFindTool = (IMVSCircleFindModuTool *)(*m_pVmSol)["流程1.圆查找1.圆结果"];
-		// if (NULL == pModuleCircleFindTool) return;
+		pModuleCircleFindTool = (IMVSCircleFindModuTool *)(*m_pVmSol)["calibration.圆查找1"];
+		if (NULL == pModuleCircleFindTool) return;
 	}
 	catch (CVmException e)
 	{
@@ -246,6 +246,9 @@ void CMainWindow::clickRenderBind()
 
 		qlonglong pData = (qlonglong)&(pResult->GetImageData());
 		m_pRender->dynamicCall("SetImageSourceData(qlonglong)", pData);
+
+		qlonglong pDataCircle = (qlonglong)&(stCirGloble);
+		m_pRender->dynamicCall("SetCircle((qlonglong)", pDataCircle);
 	}
 	catch (CVmException e)
 	{

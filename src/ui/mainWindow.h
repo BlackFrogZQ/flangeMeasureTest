@@ -9,27 +9,16 @@
 #include "MVDImageCpp.h"
 #include <QWidget>
 
-class QTextBrowser;
-class QAxWidget;
-class CMainWindowMenuBar;
-// namespace VisionMasterSDK
-// {
-//     namespace VmSolution
-//     {
-//         class IVmSolution;
-//     }
-//     namespace VmProcedure
-//     {
-//         class IVmProcedure;
-//     }
-// }
-
 using namespace VisionMasterSDK;
 using namespace VisionMasterSDK::VmSolution;
 using namespace VisionMasterSDK::VmProcedure;
-using namespace VisionMasterSDK::IMVSCircleFindModu;
 using namespace VisionMasterSDK::ImageSourceModule;
+using namespace VisionMasterSDK::IMVSCircleFindModu;
 using namespace VisionDesigner;
+
+class QTextBrowser;
+class QAxWidget;
+class CMainWindowMenuBar;
 
 class CMainWindow: public QWidget
 {
@@ -50,11 +39,11 @@ public slots:
     void slotsException(int code, QString source, QString desc, QString help);
 
 public:
-    ImageSourceModuleTool * pModuleImageSourceTool;// = (ImageSourceModuleTool *)(*m_pVmSol)["Flow1.Image Source1"];
-    IMVSCircleFindModuTool * pModuleCircleFindTool;// = (IMVSCircleFindModuTool *)(*m_pVmSol)["Flow1.Circle Search1"];
+    ImageSourceModuleTool * pModuleImageSourceTool;
+    IMVSCircleFindModuTool * pModuleCircleFindTool;
 
-    CircleEx stCirGloble;
     ImageBaseData mshowImageGloble;
+    CircleEx stCirGloble;
 
     bool m_bRenderFlag;
     bool m_bGetCallbackFlag;
