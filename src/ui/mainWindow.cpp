@@ -9,6 +9,7 @@
 #include <QVBoxLayout>
 #include <QAxWidget>
 #include <QMessageBox>
+#include <QThread>
 
 int __stdcall CallBackModuRes(OUT OutputPlatformInfo * const pstOutputPlatformInfo, IN void * const pUser)
 {
@@ -29,7 +30,7 @@ CMainWindow* mainWindow()
     return g_pMainWindow;
 };
 
-CMainWindow::CMainWindow(QWidget *parent) : QWidget(parent)
+CMainWindow::CMainWindow(QWidget *parent) : QWidget(parent), m_bRenderFlag(false), m_bGetCallbackFlag(false)
 {
     g_pMainWindow = this;
 
@@ -260,4 +261,73 @@ void CMainWindow::clickRenderBind()
         QString strReMsg = "Interface Exception!";
         myInfo << strReMsg;
     }
+}
+
+void CMainWindow::clickExecuteOnce()
+{
+	QString strReMsg = "";
+	try
+	{
+		if (NULL == m_pVmSol) return;
+		m_pVmPrc = (IVmProcedure *)(*m_pVmSol)["calibration"];
+		if (NULL == m_pVmPrc)
+		{
+			QMessageBox::warning(this, "Warning", "Procedure name doesn't exist!");
+			return;
+		}
+		pModuleImageSourceTool = (ImageSourceModuleTool *)(*m_pVmSol)["calibration.Image Source1"];
+		if (NULL == pModuleImageSourceTool) return;
+		pModuleCircleFindTool = (IMVSCircleFindModuTool *)(*m_pVmSol)["calibration.圆查找1"];
+		if (NULL == pModuleCircleFindTool) return;
+
+		m_pVmSol->DisableModulesCallback();
+		pModuleImageSourceTool->EnableResultCallback();
+		pModuleCircleFindTool->EnableResultCallback();
+		m_bGetCallbackFlag = false;
+		m_pVmPrc->Run();
+		//m_pVmSol->EnableModulesCallback();
+		while (!m_bGetCallbackFlag)  { QThread::msleep(20);  }
+		if (true == m_bRenderFlag)
+		{
+			if (NULL == pModuleImageSourceTool) return;
+			ImageSourceResults* pResult = pModuleImageSourceTool->GetResult();
+			if (NULL == pResult) return;
+
+			qlonglong pData = (qlonglong)&(pResult->GetImageData());
+			m_pRender->dynamicCall("SetImageSourceData(qlonglong)", pData);
+			qlonglong pDataCircle = (qlonglong)&(stCirGloble);
+			m_pRender->dynamicCall("SetCircle((qlonglong)", pDataCircle);
+		}
+	}
+	catch (CVmException e)
+	{
+		QString strReMsg = QString("0x%1 == Run()").arg(e.GetErrorCode(), 0, 16);
+		myInfo << strReMsg;
+		return;
+	}
+    catch (...)
+    {
+        QString strReMsg = "Interface Exception!";
+        myInfo << strReMsg;
+    }
+
+	strReMsg = "Run success.";
+	myInfo << strReMsg;
+}
+
+void CMainWindow::clickRenderUnBind()
+{
+	QString strReMsg = "";
+	try
+	{
+		m_pVmSol->DisableModulesCallback();
+		m_bRenderFlag = false;
+	}
+	catch (CVmException e)
+	{
+		QString strReMsg = QString("0x%1 == GetResult()").arg(e.GetErrorCode(), 0, 16);
+		myInfo << strReMsg;
+	}
+	strReMsg = "Remove shape success";
+	myInfo << strReMsg;
 }

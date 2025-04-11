@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "IVmSolution.h"
 #include "IVmProcedure.h"
-#include "IVmCircleFind.h"
 #include "IVmImageSource.h"
+#include "IVmCircleFind.h"
 #include "IVmExport.h"
 #include "VMException.h"
 #include "VmControlBaseInfo.h"
@@ -28,9 +28,13 @@ public:
     ~CMainWindow();
 
 	void printMsg(QString p_msg);
+
     void loadSolution(QString strSolPath, QString strPassword);
     int CallBackModuResFunc(IN OutputPlatformInfo * const pstOutputPlatformInfo, bool bTime);
+
     void clickRenderBind();
+    void clickExecuteOnce();
+    void clickRenderUnBind();
 
 protected:
 	void init();

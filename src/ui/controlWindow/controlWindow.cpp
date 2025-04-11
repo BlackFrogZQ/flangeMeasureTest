@@ -100,25 +100,6 @@ void CControl::clickLoadSolution()
     if (strPassword.isEmpty()) strPassword = "";
 
     mainWindow()->loadSolution(strSolPath, strPassword);
-
-    // try
-    // {
-    //     m_pVmSol = LoadSolution(strSolPath.toStdString().c_str(), strPassword.toStdString().c_str());
-    //     if (NULL == m_pVmSol)
-    //     {
-    //         return;
-    //     }
-    // }
-    // catch (CVmException e)
-    // {
-    //     strReMsg = QString::number(e.GetErrorCode(), 16);
-    //     strReMsg = "0x" + strReMsg + " == LoadSolution()";
-    //     myInfo << strReMsg;
-    //     return;
-    // }
-
-    // strReMsg = "LoadSolution success.";
-    // myInfo << strReMsg;
 }
 
 void CControl::clickImageResults()
@@ -140,8 +121,10 @@ void CControl::clickRenderBind()
 
 void CControl::clickExecuteOnce()
 {
+    mainWindow()->clickExecuteOnce();
 }
 
 void CControl::clickRenderUnBind()
 {
+    mainWindow()->clickRenderUnBind();
 }
