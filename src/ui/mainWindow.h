@@ -36,6 +36,10 @@ public:
     void clickExecuteOnce();
     void clickRenderUnBind();
 
+    void clickImageResults();
+    void clickCallBackImageResults();
+    void clickProcessResults();
+
 protected:
 	void init();
 
@@ -61,6 +65,7 @@ private:
     IVmProcedure * m_pVmPrc;
     QAxWidget *m_pSolution;
     QAxWidget *m_pRender;
+    IMvdImage* m_pstInputImage;
 };
 
 CMainWindow* mainWindow();

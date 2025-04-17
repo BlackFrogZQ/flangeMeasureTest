@@ -10,6 +10,7 @@
 #include <QAxWidget>
 #include <QMessageBox>
 #include <QThread>
+#include <QImage>
 
 int __stdcall CallBackModuRes(OUT OutputPlatformInfo * const pstOutputPlatformInfo, IN void * const pUser)
 {
@@ -194,6 +195,8 @@ int CMainWindow::CallBackModuResFunc(IN OutputPlatformInfo * const pstOutputPlat
 	return IMVS_EC_OK;
 }
 
+
+
 void CMainWindow::loadSolution(QString strSolPath, QString strPassword)
 {
 	QString strReMsg = "";
@@ -330,4 +333,73 @@ void CMainWindow::clickRenderUnBind()
 	}
 	strReMsg = "Remove shape success";
 	myInfo << strReMsg;
+}
+
+
+
+void CMainWindow::clickImageResults()
+{
+	// TODO:  在此添加控件通知处理程序代码
+	QString strReMsg = "";
+	try
+	{
+		if (NULL == m_pVmSol) return;
+		m_pVmPrc = (IVmProcedure *)(*m_pVmSol)["calibration"];
+		if (NULL == m_pVmPrc)
+		{
+			QMessageBox::warning(this, "Warning", "Procedure name doesn't exist!");
+			return;
+		}
+		ImageSourceModuleTool * pImageSourceTool = (ImageSourceModuleTool *)(*m_pVmSol)["calibration.Image Source1"];
+		if (NULL == pImageSourceTool) return;
+
+		m_pVmSol->DisableModulesCallback();
+		pImageSourceTool->EnableResultCallback();
+		m_bGetCallbackFlag = false;
+		m_pVmPrc->Run();
+		while (!m_bGetCallbackFlag)  { QThread::msleep(20); }
+
+		ImageSourceResults * pImageSourceResult = pImageSourceTool->GetResult();
+		if (NULL == pImageSourceResult) return;
+		ImageBaseData mshowImage = pImageSourceResult->GetImageData();
+		if (NULL == mshowImage.ImageData) return;
+
+		if (NULL == m_pstInputImage)
+		{
+			int nRet = CreateImageInstance(&m_pstInputImage);
+			if (MVD_OK != nRet)
+			{
+				QMessageBox::warning(this, "Warning", "Failed to create image instance!");
+				return;
+			}
+		}
+		MVD_IMAGE_DATA_INFO stImageDataInfo;
+		stImageDataInfo.stDataChannel[0].pData = (unsigned char*)mshowImage.ImageData;
+		stImageDataInfo.stDataChannel[0].nRowStep = (unsigned int)mshowImage.Width;
+		stImageDataInfo.stDataChannel[0].nLen = mshowImage.DataLen;
+		stImageDataInfo.stDataChannel[0].nSize = mshowImage.DataLen;
+
+		// QImage img(reinterpret_cast<const uchar*>(mshowImage.ImageData), mshowImage.Width, mshowImage.Height,mshowImage.Width, QImage::Format_Grayscale8);
+		// QString outputFile = "output.png";
+		// img.save(outputFile);
+
+		m_pstInputImage->InitImage(mshowImage.Width, mshowImage.Height, MVD_PIXEL_FORMAT::MVD_PIXEL_MONO_08, stImageDataInfo);
+		char*  pcFileName = "Proimage.jpg";
+		m_pstInputImage->SaveImage(pcFileName);
+
+		m_pVmSol->DisableModulesCallback();
+	}
+	catch (CVmException e)
+	{
+		QString strReMsg = QString("0x%1 == Getprocedureresult()").arg(e.GetErrorCode(), 0, 16);
+		myInfo << strReMsg;
+	}
+}
+
+void CMainWindow::clickCallBackImageResults()
+{
+}
+
+void CMainWindow::clickProcessResults()
+{
 }

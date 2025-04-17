@@ -104,14 +104,17 @@ void CControl::clickLoadSolution()
 
 void CControl::clickImageResults()
 {
+    mainWindow()->clickImageResults();
 }
 
 void CControl::clickCallBackImageResults()
 {
+    mainWindow()->clickCallBackImageResults();
 }
 
 void CControl::clickProcessResults()
 {
+    mainWindow()->clickProcessResults();
 }
 
 void CControl::clickRenderBind()
