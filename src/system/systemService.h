@@ -3,7 +3,8 @@
 
 class ISystemService
 {
-    friend void closeSystemService();
+public:
+    virtual ~ISystemService(){};
 
 public:
     virtual void printMsg(QString p_msg) = 0;
@@ -13,7 +14,7 @@ public:
     virtual void load() = 0;
     virtual void save() = 0;
 
-protected:
-    virtual ~ISystemService(){};
+public:
+    QMap<QString, QString> pNativeVmCOMObject;
 };
 ISystemService *sys();

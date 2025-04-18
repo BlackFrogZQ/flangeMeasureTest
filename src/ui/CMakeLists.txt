@@ -4,6 +4,7 @@ add_subdirectory(controlWindow)
 add_subdirectory(logTextBrowser)
 add_subdirectory(menuBar)
 add_subdirectory(inputDialog)
+add_subdirectory(graphicsWindow)
 
 aux_source_directory(. DIR_SYSTEM_SRCS)
 add_library(uiLib ${DIR_SYSTEM_SRCS})
@@ -14,4 +15,5 @@ target_link_libraries(uiLib
     controlLib
     logTextBrowserLib
     menuBarLib
-    inputDialogLib)
+    inputDialogLib
+    graphicsLib)

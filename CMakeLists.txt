@@ -105,11 +105,13 @@ include_directories(${PROJECT_SOURCE_DIR}/src/system)
 include_directories(${PROJECT_SOURCE_DIR}/src/hal)
 include_directories(${PROJECT_SOURCE_DIR}/src/para)
 include_directories(${PROJECT_SOURCE_DIR}/src/qtSingleApplication)
+include_directories(${PROJECT_SOURCE_DIR}/src/imageProcess)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/ui)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/system)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/hal)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/para)
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/qtSingleApplication)
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/imageProcess)
 
 qt5_add_resources(sources qml.qrc)
 set(versionRc "${PROJECT_SOURCE_DIR}/build/info.rc")
@@ -135,6 +137,7 @@ macro(Macro_LinkLib exeName)
     ${Qt5model}
     ${currentLibs}
     qtSingleApplicationLib
+    imageProcessLib
     uiLib
     sysLib
     halLib

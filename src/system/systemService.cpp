@@ -11,6 +11,7 @@
 #include <QApplication>
 #include <QTranslator>
 #include <QSettings>
+#include <windows.h>
 
 void logOutput(QtMsgType p_type, const QMessageLogContext& p_context, const QString& p_msg);
 
@@ -19,12 +20,13 @@ class CVmControl : public ISystemService
 public:
     CVmControl();
     void init();
+    QMap<QString, QString> enumVmNativeCOM();
     virtual void printMsg(QString p_msg);
     virtual void restartSys() const;
     virtual void updateParas();
     // virtual void restartCamera(TIGER_Camera::CMatrixCameraId id = TIGER_Camera::visionCamera);
-    void load();
-    void save();
+    virtual void load();
+    virtual void save();
 
 protected:
     ~CVmControl();
@@ -45,7 +47,48 @@ CVmControl::~CVmControl()
 
 void CVmControl::init()
 {
+    pNativeVmCOMObject = enumVmNativeCOM();
     myWarning << QObject::tr("程序开始");
+}
+
+QMap<QString, QString> CVmControl::enumVmNativeCOM()
+{
+    QMap<QString, QString> result;
+    HKEY hKeyRoot = nullptr;
+    if (RegOpenKeyExW(HKEY_CLASSES_ROOT, L"", 0, KEY_READ | KEY_WOW64_64KEY, &hKeyRoot) != ERROR_SUCCESS)
+    {
+        return result;
+    }
+
+    DWORD index = 0;
+    wchar_t name[256];
+    DWORD nameLen = _countof(name);
+    while (RegEnumKeyExW(hKeyRoot, index++, name, &nameLen, nullptr, nullptr, nullptr, nullptr) == ERROR_SUCCESS)
+    {
+        QString keyName = QString::fromWCharArray(name);
+        if (!keyName.startsWith("Vm"))
+        {
+            nameLen = _countof(name);
+            continue;
+        }
+
+        HKEY hKeyClsid = nullptr;
+        QString subPath = keyName + "\\CLSID";
+        if (RegOpenKeyExW(hKeyRoot, (LPCWSTR)subPath.utf16(), 0, KEY_READ | KEY_WOW64_64KEY, &hKeyClsid) == ERROR_SUCCESS)
+        {
+            wchar_t data[64];
+            DWORD dataLen = sizeof(data);
+            DWORD type = 0;
+            if (RegQueryValueExW(hKeyClsid, nullptr, nullptr, &type, (LPBYTE)data, &dataLen) == ERROR_SUCCESS && type == REG_SZ)
+            {
+                result[keyName] = QString::fromWCharArray(data);
+            }
+            RegCloseKey(hKeyClsid);
+        }
+        nameLen = _countof(name);
+    }
+    RegCloseKey(hKeyRoot);
+    return result;
 }
 
 void CVmControl::printMsg(QString p_msg)
@@ -89,6 +132,8 @@ void CVmControl::updateParas()
     // TIGER_Camera::CCameraCreator::destroyCamera(id);
     // TIGER_Camera::CCameraCreator::createCamera(TIGER_CameraDef::cameraParas(id)->cameraType, id);
 // }
+
+
 
 void CVmControl::load()
 {

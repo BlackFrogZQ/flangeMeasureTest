@@ -15,7 +15,7 @@ class CControl: public QWidget
 {
     Q_OBJECT
 public:
-    CControl(QWidget *parent = nullptr, VisionMasterSDK::VmSolution::IVmSolution* pVmSol = nullptr);
+    CControl(QWidget *parent = nullptr);
     ~CControl();
 
 protected:

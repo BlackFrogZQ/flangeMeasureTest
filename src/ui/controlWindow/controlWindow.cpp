@@ -15,7 +15,7 @@
 using namespace VisionMasterSDK;
 using namespace VisionMasterSDK::VmSolution;
 
-CControl::CControl(QWidget *parent, IVmSolution* pVmSol) : QWidget(parent), m_pVmSol(pVmSol)
+CControl::CControl(QWidget *parent) : QWidget(parent)
 {
     initLayout();
 }
