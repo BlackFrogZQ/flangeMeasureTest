@@ -22,7 +22,7 @@ CMainWindow::CMainWindow(QWidget *parent) : QWidget(parent)
 {
     g_pMainWindow = this;
 
-	m_pHikrobotEngine = new CHikrobotEngine;
+	m_pHikrobotEngine = new CHikrobotEngine(this);
     init();
 }
 

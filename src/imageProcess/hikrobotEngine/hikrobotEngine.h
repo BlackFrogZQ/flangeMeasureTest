@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "../IProcessToolFun.h"
+#include "hikrobotEngineDef.h"
 #include "IVmSolution.h"
 #include "IVmProcedure.h"
 #include "IVmImageSource.h"
@@ -8,6 +9,7 @@
 #include "VMException.h"
 #include "VmControlBaseInfo.h"
 #include "MVDImageCpp.h"
+#include <QWidget>
 
 using namespace VisionDesigner;
 using namespace VisionMasterSDK;
@@ -20,10 +22,10 @@ class QAxWidget;
 
 namespace TIGER_ProcessTool
 {
-    class CHikrobotEngine : IProcessToolFun
+    class CHikrobotEngine : public IProcessToolFun, public QWidget
     {
     public:
-        CHikrobotEngine();
+        CHikrobotEngine(QWidget *parent = nullptr);
         ~CHikrobotEngine();
 
         virtual void init() override;
@@ -47,19 +49,21 @@ namespace TIGER_ProcessTool
     public slots:
         void slotsException(int code, QString source, QString desc, QString help);
 
-    protected:
+    public:
         struct CAxWidget
         {
-            QString name;
-            bool isAdd;
+            CCOMObject pCOMObject;
+            QString enName;
+            QString cnName;
+            QString CLSID;
+            bool isExist;
             QAxWidget *pAxWidget;
         };
+        QVector<CAxWidget> m_pAxWidgets;
 
     private:
         IVmSolution* m_pVmSol;
         IVmProcedure * m_pVmPrc;
-        QVector<CAxWidget> m_pAxWidgets;
-
         IMvdImage* m_pstInputImage;
     };
 };

@@ -133,8 +133,6 @@ void CVmControl::updateParas()
     // TIGER_Camera::CCameraCreator::createCamera(TIGER_CameraDef::cameraParas(id)->cameraType, id);
 // }
 
-
-
 void CVmControl::load()
 {
     paraService()->load();

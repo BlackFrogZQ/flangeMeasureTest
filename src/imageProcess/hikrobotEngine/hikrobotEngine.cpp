@@ -2,10 +2,11 @@
 #include "hikrobotEngineDef.h"
 #include "system/systemService.h"
 #include <QThread>
+#include <QAxWidget>
 
 namespace TIGER_ProcessTool
 {
-    CHikrobotEngine::CHikrobotEngine() : m_bGetCallbackFlag(false), m_bRenderFlag(false)
+    CHikrobotEngine::CHikrobotEngine(QWidget *parent) : QWidget(parent), m_bGetCallbackFlag(false), m_bRenderFlag(false)
     {
         init();
     }
@@ -21,6 +22,32 @@ namespace TIGER_ProcessTool
             m_pVmSol = CreateSolutionInstance();
             m_pVmSol->RegisterCallBack(CallBackModuRes, this);
             m_pVmSol->DisableModulesCallback();
+
+            auto map = sys()->pNativeVmCOMObject;
+            for(int i = 0; i < cCOMObjectEnName.size(); i++)
+            {
+                CAxWidget stAxWidget;
+                stAxWidget.pCOMObject = (CCOMObject)i;
+                stAxWidget.enName = cCOMObjectEnName[i];
+                stAxWidget.cnName = cCOMObjectCnName[i];
+                stAxWidget.CLSID = "";
+                stAxWidget.isExist = false;
+                stAxWidget.pAxWidget = nullptr;
+                for (auto it = map.constBegin(); it != map.constEnd(); ++it)
+                {
+                    QString pCOMKye = it.key();
+                    pCOMKye = pCOMKye.section('.', 0, 0);
+                    if (pCOMKye == cCOMObjectEnName[i])
+                    {
+                        stAxWidget.CLSID = it.value();
+                        stAxWidget.isExist = true;
+                        stAxWidget.pAxWidget = new QAxWidget(it.value(), this);
+                        stAxWidget.pAxWidget->dynamicCall("GetObjectPointer()");
+                        break;
+                    }
+                }
+                m_pAxWidgets.append(stAxWidget);
+            }
         }
         catch(CVmException e)
         {
