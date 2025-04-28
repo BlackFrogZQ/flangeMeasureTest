@@ -78,13 +78,15 @@ endif()
 
 file(GLOB HMHaShuLIBS "${PROJECT_SOURCE_DIR}/lib/HMHaShu/*.lib")
 file(GLOB HMHaShuDlls "${PROJECT_SOURCE_DIR}/lib/HMHaShu/*.dll")
+file(GLOB HIK3DMVSLIBS "${PROJECT_SOURCE_DIR}/lib/HIK3DMVS/*.lib")
+file(GLOB HIK3DMVSDlls "${PROJECT_SOURCE_DIR}/lib/HIK3DMVS/*.dll")
 file(GLOB VisionMasterSDKLIBS "${PROJECT_SOURCE_DIR}/lib/VisionMasterSDK/*.lib")
 file(GLOB VisionMasterSDKDlls "${PROJECT_SOURCE_DIR}/lib/VisionMasterSDK/*.dll")
 # 所有非Qt通用lib库 不一定在统一目录 可直接追加目录
-set_property(GLOBAL APPEND PROPERTY LIBS ${HMHaShuLIBS} ${VisionMasterSDKLIBS})
+set_property(GLOBAL APPEND PROPERTY LIBS ${HMHaShuLIBS} ${HIK3DMVSLIBS} ${VisionMasterSDKLIBS})
 get_property(currentLibs GLOBAL PROPERTY LIBS)
 # 所有非Qt通用dll库 不一定在统一目录 可直接追加目录
-set_property(GLOBAL APPEND PROPERTY libDlls ${HMHaShuDlls} ${VisionMasterSDKDlls})
+set_property(GLOBAL APPEND PROPERTY libDlls ${HMHaShuDlls} ${HIK3DMVSDlls} ${VisionMasterSDKDlls})
 
 macro(Macro_SetOutPath outPath)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${outPath})
@@ -97,6 +99,7 @@ Macro_SetOutPath(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(./)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/include/HMHaShu)
+include_directories(${PROJECT_SOURCE_DIR}/include/HIK3DMVS)
 include_directories(${PROJECT_SOURCE_DIR}/include/VisionMasterSDK)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
