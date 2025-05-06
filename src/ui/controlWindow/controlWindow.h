@@ -3,19 +3,17 @@
 
 class QLineEdit;
 class QPushButton;
-namespace VisionMasterSDK
+namespace TIGER_ProcessTool
 {
-    namespace VmSolution
-    {
-        class IVmSolution;
-    }
+    class CHikrobotEngine;
 }
+
 
 class CControl: public QWidget
 {
     Q_OBJECT
 public:
-    CControl(QWidget *parent = nullptr);
+    CControl(QWidget *parent = nullptr, TIGER_ProcessTool::CHikrobotEngine *pHikrobotEngine = nullptr);
     ~CControl();
 
 protected:
@@ -46,6 +44,6 @@ private:
     QPushButton *m_pRenderBind;
     QPushButton *m_pExecuteOnce;
     QPushButton *m_pRenderUnBind;
-    
-    VisionMasterSDK::VmSolution::IVmSolution* m_pVmSol;
+
+    TIGER_ProcessTool::CHikrobotEngine *m_pHikrobotEngine;
 };

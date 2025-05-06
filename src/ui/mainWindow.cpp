@@ -24,6 +24,8 @@ CMainWindow::CMainWindow(QWidget *parent) : QWidget(parent)
 
 	m_pHikrobotEngine = new CHikrobotEngine(this);
     init();
+
+    connect(m_pHikrobotEngine, &CHikrobotEngine::sigGrabImage, this, &CMainWindow::slotUpdateImage);
 }
 
 CMainWindow::~CMainWindow()
@@ -44,7 +46,7 @@ void CMainWindow::init()
 
     QWidget *pControlWidget = new QWidget;
     QVBoxLayout *pControlLayout = new QVBoxLayout;
-    m_pControl = new CControl(this);
+    m_pControl = new CControl(this, m_pHikrobotEngine);
     m_pOutMsg = new CTextBrowser(this, this);
     m_pOutMsg->setStyleSheet(cStyleSheet);
     m_pOutMsg->document()->setMaximumBlockCount(300);
@@ -53,13 +55,13 @@ void CMainWindow::init()
     pControlLayout->addWidget(m_pOutMsg);
     pControlWidget->setLayout(pControlLayout);
 
-	ImageView *view = new ImageView;
-	view->loadImage(QImage("C:/Users/12754/Desktop/111.jpeg"));
+	m_pImageView = new ImageView;
+	m_pImageView->loadImage(QImage("C:/Users/12754/Desktop/111.jpeg"));
 
     QWidget *pMainWidget = new QWidget;
     QHBoxLayout *pMainLayout = new QHBoxLayout();
     pMainLayout->addWidget(pControlWidget);
-    pMainLayout->addWidget(view);
+    pMainLayout->addWidget(m_pImageView);
     pMainWidget->setLayout(pMainLayout);
 
     QVBoxLayout *pLayout = new QVBoxLayout();
@@ -70,33 +72,7 @@ void CMainWindow::init()
     this->setLayout(pLayout);
 }
 
-void CMainWindow::loadSolution(QString strSolPath, QString strPassword)
+void CMainWindow::slotUpdateImage(QImage p_image)
 {
-	m_pHikrobotEngine->loadSolution(strSolPath, strPassword);
-}
-
-void CMainWindow::clickRenderBind()
-{
-}
-
-void CMainWindow::clickExecuteOnce()
-{
-	m_pHikrobotEngine->executeOnce();
-}
-
-void CMainWindow::clickRenderUnBind()
-{
-}
-
-void CMainWindow::clickImageResults()
-{
-	m_pHikrobotEngine->getimagesourceresult();
-}
-
-void CMainWindow::clickCallBackImageResults()
-{
-}
-
-void CMainWindow::clickProcessResults()
-{
+    m_pImageView->loadImage(p_image);
 }

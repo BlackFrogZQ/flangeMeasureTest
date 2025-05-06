@@ -98,7 +98,7 @@ namespace TIGER_ProcessTool
                 try
                 {
                     // if (NULL == pModuleImageSourceTool)
-                    // { 
+                    // {
                     //     m_bGetCallbackFlag = true;
                     //     return IMVS_EC_PARAM;
                     // }
@@ -108,9 +108,9 @@ namespace TIGER_ProcessTool
                     //     mshowImageGloble = { 0 };
                     //     mshowImageGloble = pModuleImageResult->GetImageData();
                     // }
-    
+
                     // if (NULL == pModuleCircleFindTool)
-                    // { 
+                    // {
                     //     m_bGetCallbackFlag = true;
                     //     return IMVS_EC_PARAM;
                     // }
@@ -122,17 +122,17 @@ namespace TIGER_ProcessTool
                     //     stCir.CenterY = pModuleCircleFindResult->GetCircleCenter().fY;
                     //     stCir.MajorRadius = pModuleCircleFindResult->GetCircleRadius();
                     //     stCir.MinorRadius = pModuleCircleFindResult->GetCircleRadius();
-    
+
                     //     int nArgb = 0;
                     //     nArgb += 100 << 16;
                     //     nArgb += 200 << 8;
                     //     nArgb += 150;
-    
+
                     //     stCir.Color = nArgb;
                     //     stCir.FillColor = nArgb;
                     //     stCir.Opacity = 1;
                     //     stCir.StrokeThickness = 1;
-    
+
                     //     stCirGloble = stCir;
                     // }
                     m_bGetCallbackFlag = true;
@@ -260,8 +260,9 @@ namespace TIGER_ProcessTool
             stImageDataInfo.stDataChannel[0].nSize = mshowImage.DataLen;
 
             QImage img(reinterpret_cast<const uchar*>(mshowImage.ImageData), mshowImage.Width, mshowImage.Height,mshowImage.Width, QImage::Format_Grayscale8);
-            QString outputFile = "output.png";
-            img.save(outputFile);
+            // QString outputFile = "output.png";
+            // img.save(outputFile);
+            emit sigGrabImage(img);
 
             // m_pstInputImage->InitImage(mshowImage.Width, mshowImage.Height, MVD_PIXEL_FORMAT::MVD_PIXEL_MONO_08, stImageDataInfo);
             // char*  pcFileName = "Proimage.jpg";

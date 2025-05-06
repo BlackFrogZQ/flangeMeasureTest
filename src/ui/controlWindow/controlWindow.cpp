@@ -5,6 +5,7 @@
 #include "./mainWindow.h"
 #include "hal/DZSTMark/DZSTMark.h"
 #include "hal/DZSTMark/DZSTMarkDef.h"
+#include "imageProcess/hikrobotEngine/hikrobotEngine.h"
 #include <QPushButton>
 #include <QLabel>
 #include <QLineEdit>
@@ -12,10 +13,11 @@
 #include <QVBoxLayout>
 #include <QFileDialog>
 
+using namespace TIGER_ProcessTool;
 using namespace VisionMasterSDK;
 using namespace VisionMasterSDK::VmSolution;
 
-CControl::CControl(QWidget *parent) : QWidget(parent)
+CControl::CControl(QWidget *parent, CHikrobotEngine *pHikrobotEngine) : QWidget(parent), m_pHikrobotEngine(pHikrobotEngine)
 {
     initLayout();
 }
@@ -99,35 +101,31 @@ void CControl::clickLoadSolution()
     if (strSolPath.isEmpty()) strSolPath = "";
     if (strPassword.isEmpty()) strPassword = "";
 
-    mainWindow()->loadSolution(strSolPath, strPassword);
+    m_pHikrobotEngine->loadSolution(strSolPath, strPassword);
 }
 
 void CControl::clickImageResults()
 {
-    mainWindow()->clickImageResults();
+    m_pHikrobotEngine->getimagesourceresult();
 }
 
 void CControl::clickCallBackImageResults()
 {
-    mainWindow()->clickCallBackImageResults();
 }
 
 void CControl::clickProcessResults()
 {
-    mainWindow()->clickProcessResults();
 }
 
 void CControl::clickRenderBind()
 {
-    mainWindow()->clickRenderBind();
 }
 
 void CControl::clickExecuteOnce()
 {
-    mainWindow()->clickExecuteOnce();
+    m_pHikrobotEngine->executeOnce();
 }
 
 void CControl::clickRenderUnBind()
 {
-    mainWindow()->clickRenderUnBind();
 }

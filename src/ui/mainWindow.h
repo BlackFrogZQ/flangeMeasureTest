@@ -3,6 +3,7 @@
 
 class QTextBrowser;
 class CMainWindowMenuBar;
+class ImageView;
 namespace TIGER_ProcessTool
 {
     class CHikrobotEngine;
@@ -17,23 +18,18 @@ public:
 
 	void printMsg(QString p_msg);
 
-    void loadSolution(QString strSolPath, QString strPassword);
-
-    void clickRenderBind();
-    void clickExecuteOnce();
-    void clickRenderUnBind();
-
-    void clickImageResults();
-    void clickCallBackImageResults();
-    void clickProcessResults();
-
 protected:
 	void init();
+
+
+public slots:
+    void slotUpdateImage(QImage p_image);
 
 private:
 	QTextBrowser* m_pOutMsg;
     QWidget* m_pControl;
     CMainWindowMenuBar *m_pMenuBar;
+    ImageView *m_pImageView;
 
     TIGER_ProcessTool::CHikrobotEngine* m_pHikrobotEngine;
 };

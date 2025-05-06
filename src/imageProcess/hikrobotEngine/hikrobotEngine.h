@@ -22,8 +22,9 @@ class QAxWidget;
 
 namespace TIGER_ProcessTool
 {
-    class CHikrobotEngine : public IProcessToolFun, public QWidget
+    class CHikrobotEngine : public QWidget, public IProcessToolFun
     {
+        Q_OBJECT
     public:
         CHikrobotEngine(QWidget *parent = nullptr);
         ~CHikrobotEngine();
@@ -45,6 +46,9 @@ namespace TIGER_ProcessTool
 
         bool m_bRenderFlag;
         bool m_bGetCallbackFlag;
+
+    signals:
+        void sigGrabImage(QImage p_image);
 
     public slots:
         void slotsException(int code, QString source, QString desc, QString help);
