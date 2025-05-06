@@ -12,6 +12,7 @@ namespace TIGER_HIKROBOT3DCamera
 {
     class CHIK3DMVS : public QObject
     {
+        Q_OBJECT
     public:
         CHIK3DMVS(WId p_hWndDisplay);
         ~CHIK3DMVS();

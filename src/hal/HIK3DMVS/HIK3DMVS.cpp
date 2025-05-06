@@ -163,18 +163,41 @@ namespace TIGER_HIKROBOT3DCamera
 
     void CHIK3DMVS::displayImage(MV3D_LP_IMAGE_DATA* p_imageData)
     {
+        if ((NULL == p_imageData) || (NULL == m_hWndDisplay))
+        {
+            return;
+        }
+
         int nRet = MV3D_LP_OK;
         void* hWnd = reinterpret_cast<void*>(m_hWndDisplay);
         nRet = MV3D_LP_DisplayImage(p_imageData, hWnd, DisplayType_Auto, 0, 0);
         if(nRet != MV3D_LP_OK)
         {
-            myInfo << cnStr("保存图片失败，错误代码: %1").arg(nRet);
+            myInfo << cnStr("显示图片失败，错误代码: %1").arg(nRet);
             return;
         }
 
         m_mutex.lock();
+        int m_MaxImageSize = 0;
         {
-            memset(m_pcDataBuf, 0, p_imageData->nDataLen);
+            if (m_MaxImageSize <  p_imageData->nDataLen)
+            {
+                if (NULL != m_pcDataBuf)
+                {
+                    free(m_pcDataBuf);
+                    m_pcDataBuf = NULL;
+                }
+
+                m_MaxImageSize =  p_imageData->nDataLen;
+                m_pcDataBuf =  (unsigned char*)malloc(m_MaxImageSize);
+                if (NULL == m_pcDataBuf)
+                {
+                    nRet = MV3D_LP_E_RESOURCE;
+                }
+                memset(m_pcDataBuf, 0, m_MaxImageSize);
+            }
+
+            memset(&m_stImageInfo, 0, sizeof(MV3D_LP_IMAGE_DATA));
             memcpy(&m_stImageInfo, p_imageData, sizeof(MV3D_LP_IMAGE_DATA));
             if (p_imageData->pData != NULL)
             {

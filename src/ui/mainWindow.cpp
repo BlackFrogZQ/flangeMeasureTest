@@ -56,7 +56,7 @@ void CMainWindow::init()
     pControlWidget->setLayout(pControlLayout);
 
 	m_pImageView = new ImageView;
-	m_pImageView->loadImage(QImage("C:/Users/12754/Desktop/111.jpeg"));
+    m_pImageView->setFixedSize(800, 600);
 
     QWidget *pMainWidget = new QWidget;
     QHBoxLayout *pMainLayout = new QHBoxLayout();
