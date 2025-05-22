@@ -2,23 +2,27 @@
 #include "Mv3dLpApi.h"
 #include "Mv3dLpDefine.h"
 #include "Mv3dLpImgProc.h"
-#include "HIK3DMVSDef.h"
+#include "../iCamera.h"
 #include <windows.h>
 #include <iostream>
 #include <QtGui>
 #include <QObject>
 
-namespace TIGER_HIKROBOT3DCamera
+namespace TIGER_Camera
 {
-    class CHIK3DMVS : public QObject
+    class CHIK3DMVS : public ICamera
     {
         Q_OBJECT
     public:
         CHIK3DMVS(WId p_hWndDisplay);
+        CHIK3DMVS();
         ~CHIK3DMVS();
 
-        void enumDevices();
-        void openCamera();
+    protected:
+        bool initHikvisionCameraEngine();
+        void enumtHikvisionDevices();
+
+        bool connectCamera();
         void closeCamera();
 
         void startGrabImage();
@@ -27,10 +31,22 @@ namespace TIGER_HIKROBOT3DCamera
         void processThread();
         void displayImage(MV3D_LP_IMAGE_DATA* p_imageData);
 
-        void saveImage(QString p_filename);
+        void printError(const QString &p_msg);
+        bool checkErrorCode(int errorCode, QString preMsg = QString());
+        void handleException(MV3D_LP_EXCEPTION_INFO* info);
 
     protected:
-        void init();
+        static void __stdcall CallBackFunc(MV3D_LP_IMAGE_DATA* pstImageData, void* pUser);
+        static void __stdcall ExceptCallBackFunc(MV3D_LP_EXCEPTION_INFO* pstExceptInfo, void* pUser);
+        static QString formatErrorMsg(QString p_error, MV3D_LP_STATUS errorCode);
+
+    public slots:
+        virtual void init(CCameraPara paras) override;
+
+    protected slots:
+        void slotGrabImage(QImage p_image);
+        void slotTimeout();
+        void slotConnect();
 
     private:
         unsigned int m_nDevNum;
@@ -49,5 +65,7 @@ namespace TIGER_HIKROBOT3DCamera
         unsigned char* m_pcDataBuf;
 
         int pErrorCode;
+
+        QTimer *m_pTimer;
     };
 };

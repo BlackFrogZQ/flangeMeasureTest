@@ -76,6 +76,9 @@ if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     add_definitions(-DTrace)
 endif()
 
+# TODO:相机数量
+add_definitions(-DCamera_Sum=2)
+
 file(GLOB HMHaShuLIBS "${PROJECT_SOURCE_DIR}/lib/HMHaShu/*.lib")
 file(GLOB HMHaShuDlls "${PROJECT_SOURCE_DIR}/lib/HMHaShu/*.dll")
 file(GLOB HIK3DMVSLIBS "${PROJECT_SOURCE_DIR}/lib/HIK3DMVS/*.lib")

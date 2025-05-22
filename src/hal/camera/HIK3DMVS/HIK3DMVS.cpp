@@ -1,16 +1,62 @@
 ﻿#include "HIK3DMVS.h"
 #include "system/basic.h"
+#include "../iCameraDef.h"
 #include <QThread>
 #include <QMutex>
 
-namespace TIGER_HIKROBOT3DCamera
+namespace TIGER_Camera
+{
+    QString CHIK3DMVS::formatErrorMsg(QString p_error, MV3D_LP_STATUS errorCode)
+    {
+        QString errorMsg;
+        switch (errorCode)
+        {
+            case MV3D_LP_OK:
+                errorMsg = p_error + "成功";
+                break;
+            case MV3D_LP_E_NODATA:
+                errorMsg = p_error + "无数据";
+                break;
+            case MV3D_LP_E_OUTOFRANGE:
+                errorMsg = p_error + "值超出范围";
+                break;
+            case MV3D_LP_E_UNKNOW:
+                errorMsg = p_error + "未知错误";
+                break;
+            default:
+                errorMsg = p_error + "未知错误";
+                break;
+        }
+        return errorMsg;
+    }
+
+    void __stdcall CHIK3DMVS::CallBackFunc(MV3D_LP_IMAGE_DATA* pstImageData, void* pUser)
+    {
+        assert(pUser != nullptr);
+        auto pCamera = static_cast<CHIK3DMVS*>(pUser);
+    }
+
+    void __stdcall CHIK3DMVS::ExceptCallBackFunc(MV3D_LP_EXCEPTION_INFO* pstExceptInfo, void* pUser)
+    {
+        if (pUser)
+        {
+            static_cast<CHIK3DMVS*>(pUser)->handleException(pstExceptInfo);
+        }
+    }
+};
+
+namespace TIGER_Camera
 {
     CHIK3DMVS::CHIK3DMVS(WId p_hWndDisplay) : m_hWndDisplay(p_hWndDisplay), m_nDevNum(0), m_bConnect(false), m_handle(NULL), m_hProcessThread(NULL), m_bStartJob(false), m_pcDataBuf(NULL), pErrorCode(MV3D_LP_OK)
     {
         memset(&m_stDeviceInfoList, 0, sizeof(m_stDeviceInfoList));
         memset(&m_stImageInfo, 0, sizeof(MV3D_LP_IMAGE_DATA));
+    }
 
-        init();
+    CHIK3DMVS::CHIK3DMVS() : m_hWndDisplay(NULL), m_nDevNum(0), m_bConnect(false), m_handle(NULL), m_hProcessThread(NULL), m_bStartJob(false), m_pcDataBuf(NULL), pErrorCode(MV3D_LP_OK)
+    {
+        memset(&m_stDeviceInfoList, 0, sizeof(m_stDeviceInfoList));
+        memset(&m_stImageInfo, 0, sizeof(MV3D_LP_IMAGE_DATA));
     }
 
     CHIK3DMVS::~CHIK3DMVS()
@@ -22,31 +68,43 @@ namespace TIGER_HIKROBOT3DCamera
         }
     }
 
-    void CHIK3DMVS::init()
+    void CHIK3DMVS::init(CCameraPara paras)
     {
-        QString pSDKVersion = QString::fromUtf8(MV3D_LP_GetVersion());
-        myInfo << cnStr("SDK版本号: %1").arg(pSDKVersion);
-
-        if(MV3D_LP_Initialize() != MV3D_LP_OK)
+        if(!initHikvisionCameraEngine())
         {
-            myInfo << cnStr("SDK运行环境初始化失败，错误代码: %1").arg(MV3D_LP_GetVersion());
+            printError(tr("SDK运行环境初始化失败"));
             return;
         }
+        m_paraInfo = paras;
+        m_pTimer = new QTimer(this);
+        connect(m_pTimer, &QTimer::timeout, this, &CHIK3DMVS::slotTimeout);
+        slotConnect();
     }
 
-    void CHIK3DMVS::enumDevices()
+    bool CHIK3DMVS::initHikvisionCameraEngine()
     {
-        int nRet = MV3D_LP_GetDeviceNumber(&m_nDevNum);
-        if(nRet != MV3D_LP_OK)
+        QString pSDKVersion = QString::fromUtf8(MV3D_LP_GetVersion());
+        pErrorCode = MV3D_LP_Initialize();
+        if(!checkErrorCode(pErrorCode, tr("SDK运行环境初始化失败，错误代码:")))
         {
-            myInfo << cnStr("查找设备失败，错误代码: %1").arg(nRet);
+            return false;
+        }
+        return true;
+    }
+
+    void CHIK3DMVS::enumtHikvisionDevices()
+    {
+        pErrorCode = MV3D_LP_GetDeviceNumber(&m_nDevNum);
+        if(pErrorCode != MV3D_LP_OK)
+        {
+            myInfo << cnStr("查找设备失败，错误代码: %1").arg(pErrorCode);
             return;
         }
 
-        nRet = MV3D_LP_GetDeviceList(&m_stDeviceInfoList[0], 20, &m_nDevNum);
-        if(nRet != MV3D_LP_OK)
+        pErrorCode = MV3D_LP_GetDeviceList(&m_stDeviceInfoList[0], 20, &m_nDevNum);
+        if(pErrorCode != MV3D_LP_OK)
         {
-            myInfo << cnStr("获取设备列表失败，错误代码: %1").arg(nRet);
+            myInfo << cnStr("获取设备列表失败，错误代码: %1").arg(pErrorCode);
             return;
         }
 
@@ -58,12 +116,30 @@ namespace TIGER_HIKROBOT3DCamera
         }
     }
 
-    void CHIK3DMVS::openCamera()
+    void CHIK3DMVS::slotTimeout()
+    {
+
+    }
+
+    void CHIK3DMVS::slotConnect()
+    {
+        if(connectCamera())
+        {
+            m_pTimer->start(6000);
+        }
+        else
+        {
+            printError(tr("相机连接失败:%1,5s后尝试连接相机").arg(m_error));
+            QTimer::singleShot(5000, this, &CHIK3DMVS::slotConnect);
+        }
+    }
+
+    bool CHIK3DMVS::connectCamera()
     {
         if(m_bConnect == true)
         {
-            myInfo << cnStr("设备已连接");
-            return;
+            printError(tr("设备已连接"));
+            return true;
         }
 
         if (m_handle)
@@ -72,17 +148,15 @@ namespace TIGER_HIKROBOT3DCamera
             m_handle = NULL;
         }
 
-        QString ip = "169.254.133.34";
-        QByteArray ipBytes = ip.toUtf8();
-        char* pIp = ipBytes.data();
-        int nRet = MV3D_LP_OpenDeviceByIP(&m_handle, pIp);
-        if(nRet != MV3D_LP_OK)
+        QByteArray ipBytes = m_paraInfo.ip.toUtf8();
+        pErrorCode = MV3D_LP_OpenDeviceByIP(&m_handle, ipBytes.data());
+        if(!checkErrorCode(pErrorCode, tr("相机打开失败，错误代码")))
         {
-            myInfo << cnStr("相机打开失败，错误代码: %1").arg(nRet);
-            return;
+            m_bConnect = false;
+            return false;
         }
-        myInfo << cnStr("相机连接成功");
         m_bConnect = true;
+        return true;
     }
 
     void CHIK3DMVS::closeCamera()
@@ -225,7 +299,7 @@ namespace TIGER_HIKROBOT3DCamera
         }
         m_bStartJob = true;
 
-        m_hProcessThread = CreateThread(NULL, 0, staticProcessThread, this, 0, &m_threadid);
+        // m_hProcessThread = CreateThread(NULL, 0, staticProcessThread, this, 0, &m_threadid);
         if (m_hProcessThread == NULL)
         {
             myInfo << cnStr("创建处理线程失败");
@@ -258,38 +332,29 @@ namespace TIGER_HIKROBOT3DCamera
         }
     }
 
-    void CHIK3DMVS::saveImage(QString p_filename)
+    void CHIK3DMVS::slotGrabImage(QImage p_image)
     {
-        int nRet = MV3D_LP_OK;
+        emit sigUpdateImage(p_image);
+    }
 
-        m_mutex.lock();
-        switch (HIKCameraSetPara()->saveImageType)
-        {
-        case csitTIFF:
-            nRet = MV3D_LP_SaveImage(&m_stImageInfo, FileType_TIFF, "");
-            break;
-        case csitBMP:
-            nRet = MV3D_LP_SaveImage(&m_stImageInfo, FileType_BMP, "");
-            break;
-        case csitRAW:
-            {
-                QFile file(p_filename);
-                if (!file.open(QIODevice::WriteOnly))
-                {
-                    myInfo << "无法打开文件保存图像:" << p_filename;
-                    return;
-                }
-                file.write(reinterpret_cast<const char*>(m_pcDataBuf), m_stImageInfo.nDataLen);
-            }
-            break;
-        default:
-            break;
-        }
-        m_mutex.unlock();
+    void CHIK3DMVS::printError(const QString &p_msg)
+    {
+        m_error = p_msg;
+        emit sigError(m_error);
+    }
 
-        if(nRet != MV3D_LP_OK)
+    bool CHIK3DMVS::checkErrorCode(int errorCode, QString preMsg)
+    {
+        bool ok = (errorCode == MV3D_LP_OK);
+        if (!ok)
         {
-            myInfo << cnStr("保存图片失败，错误代码: %1").arg(nRet);
+            printError(formatErrorMsg(preMsg, errorCode));
         }
+        return ok;
+    }
+
+    void CHIK3DMVS::handleException(MV3D_LP_EXCEPTION_INFO* info)
+    {
+
     }
 };

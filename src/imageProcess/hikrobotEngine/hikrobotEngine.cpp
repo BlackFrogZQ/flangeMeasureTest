@@ -43,7 +43,8 @@ namespace TIGER_ProcessTool
                         stAxWidget.isExist = true;
                         stAxWidget.pAxWidget = new QAxWidget(it.value(), this);
                         stAxWidget.pAxWidget->dynamicCall("GetObjectPointer()");
-                        break;
+                        connect(stAxWidget.pAxWidget, SIGNAL(exception(int, QString, QString, QString)), this, SLOT(CHikrobotEngine::slotsException(int, QString, QString, QString)));
+                break;
                     }
                 }
                 m_pAxWidgets.append(stAxWidget);
