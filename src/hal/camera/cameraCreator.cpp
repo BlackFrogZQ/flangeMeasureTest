@@ -32,9 +32,9 @@ namespace TIGER_Camera
             auto setParas = TIGER_Camera::cameraParas()->cameraPara[id];
             paras.ip = setParas.ip;
             paras.runnSpeed = setParas.runnSpeed;
+            paras.strokeLength = setParas.strokeLength;
             paras.xSinglePixelAccuracy = setParas.xSinglePixelAccuracy;
             paras.ySinglePixelAccuracy = setParas.ySinglePixelAccuracy;
-            paras.strokeLength = setParas.strokeLength;
         }
         else
         {
