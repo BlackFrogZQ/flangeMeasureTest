@@ -14,9 +14,9 @@ namespace TIGER_Camera
     {
         QString ip = "192.168.0.99";
         int runnSpeed  = 4;             // 运行速度(mm/s)
+        int strokeLength = 220;         // 行程长度(mm)
         int xSinglePixelAccuracy = 220; // X方向单像素精度(um/pixel)
         int ySinglePixelAccuracy = 220; // y方向单像素精度(um/pixel)
-        int strokeLength = 220;         // 行程长度(mm)
     };
     struct CCameraParas
     {

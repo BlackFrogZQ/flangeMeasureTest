@@ -3,8 +3,6 @@
 #include "IVmSolution.h"
 #include "VMException.h"
 #include "./mainWindow.h"
-#include "hal/DZSTMark/DZSTMark.h"
-#include "hal/DZSTMark/DZSTMarkDef.h"
 #include "imageProcess/hikrobotEngine/hikrobotEngine.h"
 #include <QPushButton>
 #include <QLabel>
